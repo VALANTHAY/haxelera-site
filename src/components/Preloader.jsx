@@ -153,7 +153,7 @@ export default function Preloader({ onComplete }) {
           color: '#ffffff', 
           margin: 0 
         }}>
-          BIENVENIDO A HAXELERA GROUP
+          Bienvenidos a Haxelera Group.
         </h1>
       </div>
 
