@@ -126,31 +126,26 @@ export default function SatelliteNetwork() {
           pointerEvents: 'none'
         }}
       >
-        <defs>
-          <filter id="glow-cable" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
+        {/* Optimized: Heavy SVG blur filters removed for extreme performance boost */}
 
         {h > 150 && (
           <>
             {/* Cable 1: Left sweep */}
             <g>
               <path className="fiber-base" d={getPath1()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-0" d={getPath1()} fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+              <path className="fiber-data fiber-anim-0" d={getPath1()} fill="none" stroke="var(--primary)" strokeWidth="2" />
             </g>
 
             {/* Cable 2: Right sweep */}
             <g>
               <path className="fiber-base" d={getPath2()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-1" d={getPath2()} fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+              <path className="fiber-data fiber-anim-1" d={getPath2()} fill="none" stroke="var(--primary)" strokeWidth="2" />
             </g>
 
             {/* Cable 3: Center wave */}
             <g>
               <path className="fiber-base" d={getPath3()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-2" d={getPath3()} fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+              <path className="fiber-data fiber-anim-2" d={getPath3()} fill="none" stroke="var(--primary)" strokeWidth="2" />
             </g>
           </>
         )}

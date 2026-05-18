@@ -172,7 +172,7 @@ section[id] {
   margin-bottom: 60px;
 }
 
-/* Premium Ambient Lights Background */
+/* Premium Ambient Lights Background (Optimized) */
 .ambient-light {
   position: absolute;
   width: 45vw;
@@ -184,6 +184,8 @@ section[id] {
   opacity: 0.18;
   mix-blend-mode: screen;
   animation: float-glow 25s infinite alternate ease-in-out;
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .ambient-light-sage {
