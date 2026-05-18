@@ -859,3 +859,55 @@ section[id] {
   0% { stroke-dashoffset: 4000; }
   100% { stroke-dashoffset: 0; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE OVERRIDES (< 768px)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hero section: center text & stack buttons on mobile */
+@media (max-width: 768px) {
+  .hero-content {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .hero-content .section-tag {
+    justify-content: center !important;
+  }
+
+  .hero-content p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .hero-tags {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* Contact section: center on mobile */
+  .contact-info {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .contact-info p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .contact-info .section-tag {
+    justify-content: center !important;
+  }
+}

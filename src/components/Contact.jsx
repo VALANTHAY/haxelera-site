@@ -55,7 +55,7 @@ export default function Contact() {
         <div className="grid md:grid-cols-12 gap-12 items-start" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px' }}>
           
           {/* Left Side Details */}
-          <div className="md:col-span-5 flex flex-col items-center text-center md:items-start md:text-left z-10" style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="contact-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
             <div className="section-tag section-tag-copper mb-4">
               CONTÁCTANOS
             </div>
