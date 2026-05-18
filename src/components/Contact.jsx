@@ -31,21 +31,15 @@ export default function Contact() {
   const locations = [
     {
       country: 'República Dominicana',
-      address: 'Calle Eugenio Deschamps #6, La Castellana, DN, 10133',
-      phone: '(+1) 809 518-2345',
+      address: 'Calle Canasibana #6, Los Cacicazgos, DN, 10133',
+      phone: '(+1) 829 626-0866',
       email: 'ventas@haxeleragroup.com'
     },
     {
       country: 'Estados Unidos',
       address: '8333 N.W. 53rd Street Suite 450, Doral, FL 33166',
-      phone: '(+1) 954 769 0276',
+      phone: '(+1) 786 746-9789',
       email: 'sales@haxeleragroup.com'
-    },
-    {
-      country: 'Guatemala',
-      address: 'Diagonal 6, 10-65 Zona 10, Centro Gerencial Las Margaritas, Oficina 601',
-      phone: '(502) 4172-0060',
-      email: 'ventas@haxeleragroup.com.gt'
     }
   ];
 
@@ -53,7 +47,7 @@ export default function Contact() {
     <section id="contacto" className="relative py-24" style={{ overflow: 'hidden' }}>
       <div className="section-container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px' }} className="contact-grid">
-          
+
           {/* Left Side Details */}
           <div className="contact-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
             <div className="section-tag section-tag-copper mb-4">
@@ -71,7 +65,7 @@ export default function Contact() {
               {locations.map((loc, idx) => (
                 <div key={idx} className="flex flex-col gap-2 p-5 rounded-xl border bg-white bg-opacity-5 border-opacity-5" style={{ border: '1px solid hsla(0,0%,100%,0.04)', background: 'hsla(0,0%,100%,0.02)' }}>
                   <h4 className="font-heading font-bold text-base text-white mb-2" style={{ color: idx % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{loc.country}</h4>
-                  
+
                   <div className="flex items-center gap-3 font-body text-xs text-muted" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
                     <MapPin className="w-4 h-4 text-white opacity-50" />
                     <span>{loc.address}</span>
@@ -92,7 +86,7 @@ export default function Contact() {
           {/* Right Side Form (Glassmorphic) */}
           <div className="md:col-span-7 flex justify-center sticky top-24">
             <div className="glass-card w-full p-8" style={{ width: '100%', border: '1px solid hsla(135, 25%, 55%, 0.12)' }}>
-              
+
               {submitted ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                   <div className="p-4 rounded-full border border-primary bg-primary-glow text-primary mb-6 animate-pulse-slow">
@@ -109,26 +103,26 @@ export default function Contact() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                     <div className="flex flex-col gap-2">
                       <label className="font-heading text-xs font-semibold uppercase tracking-wider text-muted" style={{ fontSize: '0.7rem' }}>Nombre Completo</label>
-                      <input 
-                        type="text" 
-                        name="nombre" 
+                      <input
+                        type="text"
+                        name="nombre"
                         value={formData.nombre}
                         onChange={handleChange}
                         required
-                        placeholder="Ej. Carlos Mendoza" 
+                        placeholder="Ej. Carlos Mendoza"
                         className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all"
                         style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                       />
                     </div>
                     <div className="flex flex-col gap-2">
                       <label className="font-heading text-xs font-semibold uppercase tracking-wider text-muted" style={{ fontSize: '0.7rem' }}>Empresa</label>
-                      <input 
-                        type="text" 
-                        name="empresa" 
+                      <input
+                        type="text"
+                        name="empresa"
                         value={formData.empresa}
                         onChange={handleChange}
                         required
-                        placeholder="Ej. Acme Corp" 
+                        placeholder="Ej. Acme Corp"
                         className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all"
                         style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                       />
@@ -138,13 +132,13 @@ export default function Contact() {
                   {/* Email Input */}
                   <div className="flex flex-col gap-2">
                     <label className="font-heading text-xs font-semibold uppercase tracking-wider text-muted" style={{ fontSize: '0.7rem' }}>Correo Electrónico Corporativo</label>
-                    <input 
-                      type="email" 
-                      name="email" 
+                    <input
+                      type="email"
+                      name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      placeholder="carlos@empresa.com" 
+                      placeholder="carlos@empresa.com"
                       className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all w-full"
                       style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                     />
@@ -153,8 +147,8 @@ export default function Contact() {
                   {/* Service Selector Input */}
                   <div className="flex flex-col gap-2">
                     <label className="font-heading text-xs font-semibold uppercase tracking-wider text-muted" style={{ fontSize: '0.7rem' }}>Servicio Requerido</label>
-                    <select 
-                      name="servicio" 
+                    <select
+                      name="servicio"
                       value={formData.servicio}
                       onChange={handleChange}
                       className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all w-full"
@@ -171,13 +165,13 @@ export default function Contact() {
                   {/* Message Input */}
                   <div className="flex flex-col gap-2">
                     <label className="font-heading text-xs font-semibold uppercase tracking-wider text-muted" style={{ fontSize: '0.7rem' }}>Detalles del Proyecto</label>
-                    <textarea 
-                      name="mensaje" 
+                    <textarea
+                      name="mensaje"
                       value={formData.mensaje}
                       onChange={handleChange}
                       required
-                      rows="4" 
-                      placeholder="Describa brevemente sus necesidades y plazos..." 
+                      rows="4"
+                      placeholder="Describa brevemente sus necesidades y plazos..."
                       className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all w-full resize-none"
                       style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                     ></textarea>
