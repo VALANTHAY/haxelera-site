@@ -26,13 +26,19 @@ export default function SatelliteNetwork() {
   // Capture total page height and window width in real-time
   useEffect(() => {
     const updateDimensions = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: Math.max(
-          document.body.scrollHeight,
-          document.documentElement.scrollHeight,
-          window.innerHeight
-        )
+      const newWidth = window.innerWidth;
+      const newHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        window.innerHeight
+      );
+      
+      setDimensions(prev => {
+        // Speed Optimization: Skip state updates if the dimension change is negligible
+        if (Math.abs(prev.width - newWidth) < 10 && Math.abs(prev.height - newHeight) < 15) {
+          return prev;
+        }
+        return { width: newWidth, height: newHeight };
       });
     };
 

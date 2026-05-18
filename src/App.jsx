@@ -7,13 +7,13 @@ import Preloader from './components/Preloader';
 import SatelliteNetwork from './components/SatelliteNetwork';
 
 // Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Software from './pages/Software';
-import Cloud from './pages/Cloud';
-import DataAI from './pages/DataAI';
-import Courses from './pages/Courses';
-import ContactPage from './pages/ContactPage';
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Software = React.lazy(() => import('./pages/Software'));
+const Cloud = React.lazy(() => import('./pages/Cloud'));
+const DataAI = React.lazy(() => import('./pages/DataAI'));
+const Courses = React.lazy(() => import('./pages/Courses'));
+const ContactPage = React.lazy(() => import('./pages/ContactPage'));
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,20 +44,22 @@ export default function App() {
         <WhatsAppWidget />
         <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/nosotros" element={<About />} />
-          <Route path="/nosotros/*" element={<About />} />
-          <Route path="/software" element={<Software />} />
-          <Route path="/software/*" element={<Software />} />
-          <Route path="/nube" element={<Cloud />} />
-          <Route path="/nube/*" element={<Cloud />} />
-          <Route path="/data-ai" element={<DataAI />} />
-          <Route path="/data-ai/*" element={<DataAI />} />
-          <Route path="/cursos" element={<Courses />} />
-          <Route path="/cursos/*" element={<Courses />} />
-          <Route path="/contacto" element={<ContactPage />} />
-        </Routes>
+        <React.Suspense fallback={<div className="min-h-screen bg-black" style={{ backgroundColor: 'var(--bg-color)' }} />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/nosotros" element={<About />} />
+            <Route path="/nosotros/*" element={<About />} />
+            <Route path="/software" element={<Software />} />
+            <Route path="/software/*" element={<Software />} />
+            <Route path="/nube" element={<Cloud />} />
+            <Route path="/nube/*" element={<Cloud />} />
+            <Route path="/data-ai" element={<DataAI />} />
+            <Route path="/data-ai/*" element={<DataAI />} />
+            <Route path="/cursos" element={<Courses />} />
+            <Route path="/cursos/*" element={<Courses />} />
+            <Route path="/contacto" element={<ContactPage />} />
+          </Routes>
+        </React.Suspense>
 
         <Footer />
       </div>
@@ -94,20 +96,22 @@ function MainShell() {
         <WhatsAppWidget />
         <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/nosotros" element={<About />} />
-          <Route path="/nosotros/*" element={<About />} />
-          <Route path="/software" element={<Software />} />
-          <Route path="/software/*" element={<Software />} />
-          <Route path="/nube" element={<Cloud />} />
-          <Route path="/nube/*" element={<Cloud />} />
-          <Route path="/data-ai" element={<DataAI />} />
-          <Route path="/data-ai/*" element={<DataAI />} />
-          <Route path="/cursos" element={<Courses />} />
-          <Route path="/cursos/*" element={<Courses />} />
-          <Route path="/contacto" element={<ContactPage />} />
-        </Routes>
+        <React.Suspense fallback={<div className="min-h-screen bg-black" style={{ backgroundColor: 'var(--bg-color)' }} />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/nosotros" element={<About />} />
+            <Route path="/nosotros/*" element={<About />} />
+            <Route path="/software" element={<Software />} />
+            <Route path="/software/*" element={<Software />} />
+            <Route path="/nube" element={<Cloud />} />
+            <Route path="/nube/*" element={<Cloud />} />
+            <Route path="/data-ai" element={<DataAI />} />
+            <Route path="/data-ai/*" element={<DataAI />} />
+            <Route path="/cursos" element={<Courses />} />
+            <Route path="/cursos/*" element={<Courses />} />
+            <Route path="/contacto" element={<ContactPage />} />
+          </Routes>
+        </React.Suspense>
 
         <Footer />
       </div>

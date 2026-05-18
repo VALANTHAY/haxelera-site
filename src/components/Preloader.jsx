@@ -133,8 +133,6 @@ export default function Preloader({ onComplete }) {
         fontFamily: "'Share Tech Mono', monospace"
       }}
     >
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');`}</style>
-      
       <MatrixCanvas />
 
       {/* Terminal Window */}
