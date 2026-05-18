@@ -106,7 +106,7 @@ export default function Footer() {
 
       {/* Bottom Copyright Bar */}
       <div 
-        className="max-width-1200 mx-auto pt-8 border-t border-white border-opacity-5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-body text-muted"
+        className="footer-bottom-bar"
         style={{
           maxWidth: '1200px',
           margin: '0 auto',

@@ -94,10 +94,9 @@ export default function Products() {
             return (
               <div 
                 key={product.id}
-                className="glass-card"
+                className="glass-card product-grid"
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
                   gap: '0',
                   border: isCopper ? '1px solid hsla(30, 45%, 45%, 0.15)' : '1px solid hsla(135, 25%, 55%, 0.15)',
                   padding: '0',
