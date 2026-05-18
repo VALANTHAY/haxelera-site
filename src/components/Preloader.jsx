@@ -62,11 +62,12 @@ function MatrixCanvas() {
 const COMMANDS = [
   '[SYSTEM] Initializing Haxelera.exe...',
   '[FIREWALL] Bypassing negativity...',
-  '[ACCESS] Connecting a tu sistema...',
-  '[SUCCESS] Hackea el Sistema Successfully!',
-  '[MESSAGE] "Hackea el Sistema, Usalo (Red Pill)',
-  '         que el Sistema no hackee tu vida!"',
-  '[HACK] "by Maxwell Valanthay" ;)',
+  '[ACCESS] Connecting  tu Experiencia...',
+  '[SUCCESS] Experiencia  Successfully!',
+  '[MESSAGE] "Haz de esta tu mejor Experiencia, Piensa diferente.',
+  '         Disfruta en momento, la vida es bella!"',
+  '> HAXELERA™',
+  '> by Maxwell Valanthay',
 ];
 
 export default function Preloader({ onComplete }) {
@@ -153,7 +154,7 @@ export default function Preloader({ onComplete }) {
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }}></span>
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }}></span>
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f', display: 'inline-block' }}></span>
-          <span style={{ marginLeft: '12px', fontSize: '13px', color: '#00ff99', opacity: 0.6 }}>haxelera — bash</span>
+          <span style={{ marginLeft: '12px', fontSize: '13px', color: '#00ff99', opacity: 0.6 }}>Haxelera Group — bash</span>
         </div>
 
         {/* Terminal Body */}
@@ -176,8 +177,8 @@ export default function Preloader({ onComplete }) {
           {accessGranted && (
             <div style={{ marginTop: '24px', textAlign: 'center', animation: 'fade-in 0.5s ease' }}>
               <ShieldCheck style={{ width: '40px', height: '40px', margin: '0 auto 12px', color: '#00ff99' }} />
-              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 0 10px #00ff99' }}>
-                [ ACCESS GRANTED ]
+              <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 0 15px #00ff99', color: '#ffffff', marginTop: '16px' }}>
+                BIENVENIDO A HAXELERA GROUP
               </div>
             </div>
           )}
