@@ -62,10 +62,10 @@ function MatrixCanvas() {
 const COMMANDS = [
   '[SYSTEM] Initializing Haxelera.exe...',
   '[FIREWALL] Bypassing negativity...',
-  '[ACCESS] Connecting  tu Experiencia...',
-  '[SUCCESS] Experiencia  Successfully!',
-  '[MESSAGE] "Haz de esta tu mejor Experiencia, Piensa diferente.',
-  '         Disfruta en momento, la vida es bella!"',
+  '[ACCESS] Conectando a tu experiencia...',
+  '[SUCCESS] Experiencia cargada exitosamente!',
+  '[MESSAGE] "Haz de esta tu mejor experiencia, piensa diferente.',
+  '         ¡Disfruta el momento, la vida es bella!"',
   '> HAXELERA™',
   '> by Maxwell Valanthay',
 ];
