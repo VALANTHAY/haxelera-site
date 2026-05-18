@@ -136,6 +136,27 @@ export default function Preloader({ onComplete }) {
     >
       <MatrixCanvas />
 
+      {/* Main Title Above Terminal */}
+      <div style={{
+        position: 'absolute',
+        top: '15%',
+        width: '100%',
+        textAlign: 'center',
+        zIndex: 10,
+        animation: 'fade-in 1s ease'
+      }}>
+        <h1 style={{ 
+          fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
+          fontWeight: 'bold', 
+          letterSpacing: '2px', 
+          textShadow: '0 0 15px #00ff99', 
+          color: '#ffffff', 
+          margin: 0 
+        }}>
+          BIENVENIDO A HAXELERA GROUP
+        </h1>
+      </div>
+
       {/* Terminal Window */}
       <div style={{
         position: 'relative',
@@ -177,8 +198,8 @@ export default function Preloader({ onComplete }) {
           {accessGranted && (
             <div style={{ marginTop: '24px', textAlign: 'center', animation: 'fade-in 0.5s ease' }}>
               <ShieldCheck style={{ width: '40px', height: '40px', margin: '0 auto 12px', color: '#00ff99' }} />
-              <div style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 0 15px #00ff99', color: '#ffffff', marginTop: '16px' }}>
-                BIENVENIDO A HAXELERA GROUP
+              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 0 10px #00ff99' }}>
+                [ ACCESS GRANTED ]
               </div>
             </div>
           )}
