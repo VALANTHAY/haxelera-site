@@ -11,7 +11,6 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
-import CustomCursor from './components/CustomCursor';
 
 export default function App() {
   return (
@@ -20,7 +19,6 @@ export default function App() {
       <div className="grid-overlay"></div>
 
       {/* Global Elements */}
-      <CustomCursor />
       <WhatsAppWidget />
       <Navbar />
 
