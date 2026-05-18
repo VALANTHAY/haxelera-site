@@ -762,26 +762,26 @@ h1, h2, h3, h4, h5, h6 {
    Satellite Network & Fiber Optics
    ========================================================================== */
 
-.satellite-network-wrapper-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.fiber-cables-svg-fixed {
+.satellite-network-wrapper-absolute {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
 }
 
-.satellite-dish-fixed {
+.fiber-cables-svg-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.satellite-dish-absolute {
   position: absolute;
   top: 100px;
   right: 40px;
@@ -795,7 +795,7 @@ h1, h2, h3, h4, h5, h6 {
 .dish-icon-container {
   position: relative;
   z-index: 2;
-  background: hsla(140, 15%, 8%, 0.8);
+  background: hsla(140, 15%, 8%, 0.85);
   border: 1px solid var(--primary);
   border-radius: 50%;
   padding: 12px;
@@ -838,16 +838,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Fiber Data Animation */
 .fiber-data {
-  stroke-dasharray: 40 800;
+  stroke-dasharray: 60 1200;
   animation: data-travel linear infinite;
   stroke-linecap: round;
 }
 
-.fiber-anim-0 { animation-duration: 3.5s; }
-.fiber-anim-1 { animation-duration: 4.5s; animation-delay: 1s; }
-.fiber-anim-2 { animation-duration: 4s; animation-delay: 2s; }
+.fiber-anim-0 { animation-duration: 5s; }
+.fiber-anim-1 { animation-duration: 7s; animation-delay: 1.5s; }
+.fiber-anim-2 { animation-duration: 6s; animation-delay: 3s; }
 
 @keyframes data-travel {
-  0% { stroke-dashoffset: 840; }
+  0% { stroke-dashoffset: 4000; }
   100% { stroke-dashoffset: 0; }
 }
