@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
@@ -13,6 +13,7 @@ import Cloud from './pages/Cloud';
 import DataAI from './pages/DataAI';
 import Courses from './pages/Courses';
 import ContactPage from './pages/ContactPage';
+import MatrixHack from './pages/MatrixHack';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,31 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <Routes>
+        {/* Standalone full-screen page — no Navbar/Footer/Preloader */}
+        <Route path="/hackea" element={<MatrixHack />} />
+
+        {/* All other pages with the main shell */}
+        <Route path="*" element={<MainShell />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function MainShell() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isLoading]);
+
+  return (
+    <>
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
 
       <div
@@ -38,14 +64,10 @@ export default function App() {
           position: 'relative',
         }}
       >
-        {/* Background grid overlay */}
         <div className="grid-overlay"></div>
-
-        {/* Global Persistent Elements */}
         <WhatsAppWidget />
         <Navbar />
 
-        {/* Page Routes */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nosotros" element={<About />} />
@@ -61,9 +83,8 @@ export default function App() {
           <Route path="/contacto" element={<ContactPage />} />
         </Routes>
 
-        {/* Footer */}
         <Footer />
       </div>
-    </BrowserRouter>
+    </>
   );
 }
