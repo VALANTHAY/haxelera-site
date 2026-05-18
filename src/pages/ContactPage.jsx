@@ -3,8 +3,8 @@ import Contact from '../components/Contact';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
 const locations = [
-  { country: 'República Dominicana', address: 'Calle Eugenio Deschamps #6, La Castellana, DN, 10133', phone: '(+1) 809 518-2345', email: 'ventas@haxeleragroup.com', map: 'https://maps.google.com/?q=La+Castellana+Santo+Domingo' },
-  { country: 'Estados Unidos', address: '8333 N.W. 53rd Street Suite 450, Doral, FL 33166', phone: '(+1) 954 769 0276', email: 'sales@haxeleragroup.com', map: 'https://maps.google.com/?q=8333+NW+53rd+Street+Doral+FL' },
+  { country: 'República Dominicana', address: 'Calle Canasibana #6, Los Cacicazgos, DN, 10133', phone: '(+1) 829 626-0866', email: 'ventas@haxeleragroup.com', map: 'https://maps.google.com/?q=Los+Cacicazgos+Santo+Domingo' },
+  { country: 'Estados Unidos', address: '8333 N.W. 53rd Street Suite 450, Doral, FL 33166', phone: '(+1) 786 746-9789', email: 'sales@haxeleragroup.com', map: 'https://maps.google.com/?q=8333+NW+53rd+Street+Doral+FL' },
   { country: 'Guatemala', address: 'Diagonal 6, 10-65 Zona 10, Centro Gerencial Las Margaritas, Oficina 601', phone: '(502) 4172-0060', email: 'ventas@haxeleragroup.com.gt', map: 'https://maps.google.com/?q=Diagonal+6+Zona+10+Guatemala' },
 ];
 
