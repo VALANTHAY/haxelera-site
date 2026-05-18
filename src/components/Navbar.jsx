@@ -54,9 +54,12 @@ const megaMenuData = [
   },
 ];
 
-function MegaDropdown({ items, isVisible }) {
+function MegaDropdown({ items, isVisible, onMouseEnter, onMouseLeave }) {
   return (
-    <div style={{
+    <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
       position: 'absolute',
       top: 'calc(100% + 12px)',
       left: '50%',
@@ -127,6 +130,20 @@ export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const location = useLocation();
   const navRef = useRef(null);
+  const closeTimer = useRef(null);
+
+  const handleMenuEnter = (label) => {
+    // Cancel any pending close
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+
+  const handleMenuLeave = () => {
+    // Delay closing so user can move cursor into the dropdown panel
+    closeTimer.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 250);
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -190,8 +207,8 @@ export default function Navbar() {
             <div
               key={item.label}
               style={{ position: 'relative' }}
-              onMouseEnter={() => setOpenDropdown(item.label)}
-              onMouseLeave={() => setOpenDropdown(null)}
+              onMouseEnter={() => handleMenuEnter(item.label)}
+              onMouseLeave={handleMenuLeave}
             >
               <Link
                 to={item.path}
@@ -217,7 +234,12 @@ export default function Navbar() {
                 <ChevronDown style={{ width: '14px', height: '14px', transition: 'transform 0.2s ease', transform: openDropdown === item.label ? 'rotate(180deg)' : 'none' }} />
               </Link>
 
-              <MegaDropdown items={item.items} isVisible={openDropdown === item.label} />
+              <MegaDropdown
+                items={item.items}
+                isVisible={openDropdown === item.label}
+                onMouseEnter={() => handleMenuEnter(item.label)}
+                onMouseLeave={handleMenuLeave}
+              />
             </div>
           ))}
         </div>
