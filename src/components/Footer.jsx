@@ -31,10 +31,16 @@ export default function Footer() {
         {/* Brand Column */}
         <div className="flex flex-col items-start gap-4">
           <div className="flex items-center gap-2">
-            <Shield className="w-6 h-6 text-primary" style={{ color: 'var(--primary)' }} />
-            <span className="font-heading font-extrabold tracking-wide" style={{ fontSize: '1.45rem', color: 'var(--primary)' }}>
-              HAXELERA GROUP
-            </span>
+            <img 
+              src="/logo.png" 
+              alt="Haxelera Group Logo" 
+              style={{ 
+                height: '60px', 
+                width: 'auto',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 153, 0.2))'
+              }} 
+            />
           </div>
           <p className="font-body text-xs text-muted leading-relaxed" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
             Líderes en ingeniería de software y ciberseguridad corporativa. Diseñamos arquitecturas seguras y de alto impacto para proteger el futuro de su negocio.

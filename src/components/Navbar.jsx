@@ -187,18 +187,17 @@ export default function Navbar() {
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Brand */}
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-          <div style={{ padding: '8px', borderRadius: '8px', background: 'hsla(0,0%,100%,0.04)', border: '1px solid hsla(0,0%,100%,0.08)' }}>
-            <Cpu style={{ width: '22px', height: '22px', color: 'var(--primary)' }} />
-          </div>
-          <div>
-            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.3rem', color: 'var(--primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>
-              HAXELERA GROUP
-            </div>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Software & Security
-            </div>
-          </div>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img 
+            src="/logo.png" 
+            alt="Haxelera Group Logo" 
+            style={{ 
+              height: '50px', 
+              width: 'auto',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 0 10px rgba(0, 255, 153, 0.2))'
+            }} 
+          />
         </Link>
 
         {/* Desktop Nav */}
