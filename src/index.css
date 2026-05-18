@@ -911,3 +911,10 @@ section[id] {
     justify-content: center !important;
   }
 }
+
+/* Desktop: Contact section two-column layout */
+@media (min-width: 769px) {
+  .contact-grid {
+    grid-template-columns: 5fr 7fr !important;
+  }
+}

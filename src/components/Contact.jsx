@@ -52,7 +52,7 @@ export default function Contact() {
   return (
     <section id="contacto" className="relative py-24" style={{ overflow: 'hidden' }}>
       <div className="section-container">
-        <div className="grid md:grid-cols-12 gap-12 items-start" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px' }} className="contact-grid">
           
           {/* Left Side Details */}
           <div className="contact-info" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
