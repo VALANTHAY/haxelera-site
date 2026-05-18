@@ -1,133 +1,317 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, ShieldAlert, Cpu } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Cpu, ChevronDown, Building2, Users, Star, Briefcase, Globe, Terminal, Cloud, Database, BookOpen, Mail, Shield, Cpu as CpuIcon, Smartphone } from 'lucide-react';
+
+const megaMenuData = [
+  {
+    label: 'Nosotros',
+    path: '/nosotros',
+    items: [
+      { label: 'Nuestra Historia', path: '/nosotros', icon: Building2, desc: 'Conoce cómo nacimos y crecimos.' },
+      { label: 'Nuestro Equipo', path: '/nosotros#equipo', icon: Users, desc: 'Los ingenieros detrás del éxito.' },
+      { label: 'Clientes', path: '/nosotros#clientes', icon: Star, desc: 'Más de 500 proyectos entregados.' },
+      { label: 'Vacantes', path: '/nosotros#vacantes', icon: Briefcase, desc: 'Únete a nuestro equipo global.' },
+    ]
+  },
+  {
+    label: 'Desarrollo de Software',
+    path: '/software',
+    items: [
+      { label: 'Aplicaciones Web', path: '/software#web', icon: Globe, desc: 'React, Node.js, APIs REST.' },
+      { label: 'DevOps', path: '/software#devops', icon: Terminal, desc: 'CI/CD, Kubernetes, Terraform.' },
+      { label: 'Apps Móviles', path: '/software#mobile', icon: Smartphone, desc: 'React Native, Flutter.' },
+      { label: 'Desarrollo Seguro', path: '/software#devsecops', icon: Shield, desc: 'SAST, DAST, DevSecOps.' },
+    ]
+  },
+  {
+    label: 'Nube & Servicios TI',
+    path: '/nube',
+    items: [
+      { label: 'Nube (Azure / AWS)', path: '/nube#cloud', icon: Cloud, desc: 'Arquitectura e implementación.' },
+      { label: 'Servicios Manejados', path: '/nube#msp', icon: CpuIcon, desc: 'Soporte 24/7 garantizado.' },
+      { label: 'Escritorios Virtuales', path: '/nube#vdi', icon: Globe, desc: 'Modern Workplace, AVD.' },
+      { label: 'Migración a la Nube', path: '/nube#migration', icon: Database, desc: 'Sin pérdida de datos.' },
+    ]
+  },
+  {
+    label: 'Data & AI',
+    path: '/data-ai',
+    items: [
+      { label: 'Data Engineering', path: '/data-ai#engineering', icon: Database, desc: 'Pipelines, Data Lakes, ETL.' },
+      { label: 'Machine Learning', path: '/data-ai#ml', icon: CpuIcon, desc: 'Modelos predictivos y generativos.' },
+      { label: 'Business Intelligence', path: '/data-ai#bi', icon: Star, desc: 'Dashboards y reportes en tiempo real.' },
+    ]
+  },
+  {
+    label: 'Cursos',
+    path: '/cursos',
+    items: [
+      { label: 'Ciberseguridad Ofensiva', path: '/cursos#ciber', icon: Shield, desc: 'Ethical Hacking, OSCP.' },
+      { label: 'DevOps & Cloud', path: '/cursos#devops', icon: Cloud, desc: 'Docker, K8s, Terraform.' },
+      { label: 'Data Science & ML', path: '/cursos#data', icon: Database, desc: 'Python, TensorFlow, MLOps.' },
+      { label: 'Desarrollo Full-Stack', path: '/cursos#web', icon: BookOpen, desc: 'React, Node.js, AWS.' },
+    ]
+  },
+];
+
+function MegaDropdown({ items, isVisible }) {
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 'calc(100% + 12px)',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '420px',
+      background: 'hsla(140, 15%, 6%, 0.98)',
+      backdropFilter: 'blur(24px)',
+      WebkitBackdropFilter: 'blur(24px)',
+      border: '1px solid hsla(135, 25%, 55%, 0.15)',
+      borderRadius: '16px',
+      padding: '16px',
+      boxShadow: '0 25px 50px rgba(0,0,0,0.6), 0 0 30px hsla(135, 25%, 55%, 0.05)',
+      opacity: isVisible ? 1 : 0,
+      pointerEvents: isVisible ? 'all' : 'none',
+      transform: isVisible ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-8px)',
+      transition: 'opacity 0.2s ease, transform 0.2s ease',
+      zIndex: 9999,
+    }}>
+      {/* Arrow */}
+      <div style={{
+        position: 'absolute',
+        top: '-6px',
+        left: '50%',
+        transform: 'translateX(-50%) rotate(45deg)',
+        width: '12px',
+        height: '12px',
+        background: 'hsla(140, 15%, 6%, 0.98)',
+        borderTop: '1px solid hsla(135, 25%, 55%, 0.15)',
+        borderLeft: '1px solid hsla(135, 25%, 55%, 0.15)',
+      }}></div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        {items.map((item, i) => (
+          <Link
+            key={i}
+            to={item.path}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '12px',
+              padding: '14px',
+              borderRadius: '10px',
+              textDecoration: 'none',
+              transition: 'background 0.2s ease',
+              background: 'transparent',
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = 'hsla(135, 25%, 55%, 0.08)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          >
+            <div style={{ padding: '8px', borderRadius: '8px', background: 'hsla(135, 25%, 55%, 0.1)', flexShrink: 0 }}>
+              <item.icon style={{ width: '16px', height: '16px', color: 'var(--primary)' }} />
+            </div>
+            <div>
+              <div style={{ color: 'var(--text-main)', fontSize: '0.875rem', fontWeight: 600, fontFamily: 'var(--font-heading)', marginBottom: '2px' }}>{item.label}</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', lineHeight: 1.4 }}>{item.desc}</div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
+  const location = useLocation();
+  const navRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Nosotros', href: '#nosotros' },
-    { name: 'Software', href: '#software' },
-    { name: 'Ciberseguridad', href: '#ciberseguridad' },
-    { name: 'Productos', href: '#productos' },
-    { name: 'Contacto', href: '#contacto' }
-  ];
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close menu on navigation
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setOpenDropdown(null);
+  }, [location]);
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'py-4 bg-opacity-70 backdrop-blur-md border-b border-white border-opacity-5 shadow-lg' 
-          : 'py-6 bg-transparent border-b border-transparent'
-      }`}
+    <nav
+      ref={navRef}
       style={{
-        backgroundColor: isScrolled ? 'hsla(140, 15%, 7%, 0.75)' : 'transparent',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        transition: 'all 0.3s ease',
+        backgroundColor: isScrolled ? 'hsla(140, 15%, 7%, 0.9)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
+        borderBottom: isScrolled ? '1px solid hsla(0,0%,100%,0.05)' : '1px solid transparent',
+        padding: isScrolled ? '12px 0' : '20px 0',
       }}
     >
-      <div className="max-width-1200 mx-auto px-6 flex items-center justify-between" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {/* Brand Logo */}
-        <a href="#inicio" className="flex items-center gap-3 text-decoration-none group" style={{ textDecoration: 'none' }}>
-          <div className="relative flex items-center justify-center p-2 rounded-lg border border-opacity-10 border-white bg-white bg-opacity-5">
-            <Cpu className="w-6 h-6 text-primary group-hover:rotate-90 transition-all duration-500" style={{ color: 'var(--primary)', transition: 'var(--transition-smooth)' }} />
-            <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg blur-sm transition-all duration-300" style={{ backgroundColor: 'var(--primary)' }}></div>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        {/* Brand */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <div style={{ padding: '8px', borderRadius: '8px', background: 'hsla(0,0%,100%,0.04)', border: '1px solid hsla(0,0%,100%,0.08)' }}>
+            <Cpu style={{ width: '22px', height: '22px', color: 'var(--primary)' }} />
           </div>
-          <div className="flex flex-col">
-            <span className="font-heading font-extrabold tracking-tight flex items-center gap-1" style={{ fontSize: '1.45rem', color: 'var(--primary)' }}>
+          <div>
+            <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.3rem', color: 'var(--primary)', letterSpacing: '-0.02em', lineHeight: 1 }}>
               HAXELERA GROUP
-            </span>
-            <span className="text-xs text-muted font-body uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)', fontSize: '0.65rem' }}>
+            </div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               Software & Security
-            </span>
+            </div>
           </div>
-        </a>
+        </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <ul className="flex items-center gap-8 list-none">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a 
-                  href={link.href} 
-                  className="font-heading text-sm font-medium tracking-wide transition-all duration-200 text-decoration-none"
-                  style={{
-                    color: 'var(--text-muted)',
-                    textDecoration: 'none',
-                    transition: 'var(--transition-fast)'
-                  }}
-                  onMouseEnter={(e) => e.target.style.color = 'var(--text-main)'}
-                  onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* Desktop Nav */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="md:flex hidden">
+          {megaMenuData.map((item) => (
+            <div
+              key={item.label}
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setOpenDropdown(item.label)}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
+              <Link
+                to={item.path}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  color: location.pathname.startsWith(item.path) && item.path !== '/' ? 'var(--primary)' : 'var(--text-muted)',
+                  transition: 'color 0.2s ease, background 0.2s ease',
+                  background: openDropdown === item.label ? 'hsla(0,0%,100%,0.05)' : 'transparent',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-main)'; }}
+                onMouseLeave={e => { e.currentTarget.style.color = location.pathname.startsWith(item.path) && item.path !== '/' ? 'var(--primary)' : 'var(--text-muted)'; }}
+              >
+                {item.label}
+                <ChevronDown style={{ width: '14px', height: '14px', transition: 'transform 0.2s ease', transform: openDropdown === item.label ? 'rotate(180deg)' : 'none' }} />
+              </Link>
 
-          <a href="#contacto" className="btn-accent py-2 px-5 text-sm" style={{ padding: '10px 22px', fontSize: '0.85rem' }}>
-            Escríbenos
-          </a>
+              <MegaDropdown items={item.items} isVisible={openDropdown === item.label} />
+            </div>
+          ))}
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg border border-opacity-10 border-white bg-white bg-opacity-5 text-white cursor-pointer hover:bg-opacity-10 transition-all"
-          style={{ background: 'hsla(0, 0%, 100%, 0.03)', border: '1px solid hsla(0, 0%, 100%, 0.08)' }}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* CTA + Mobile Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <Link
+            to="/contacto"
+            className="btn-accent md:flex hidden"
+            style={{ padding: '10px 22px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}
+          >
+            <Mail style={{ width: '14px', height: '14px' }} />
+            Contáctanos
+          </Link>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{ background: 'hsla(0,0%,100%,0.04)', border: '1px solid hsla(0,0%,100%,0.08)', borderRadius: '8px', padding: '8px', color: 'white', cursor: 'pointer', display: 'flex' }}
+            className="md:hidden"
+          >
+            {isMobileMenuOpen ? <X style={{ width: '22px', height: '22px' }} /> : <Menu style={{ width: '22px', height: '22px' }} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div 
-          className="md:hidden absolute top-full left-0 right-0 border-b border-opacity-10 border-white animate-pulse-slow"
-          style={{
-            backgroundColor: 'var(--bg-color)',
-            borderBottom: '1px solid var(--glass-border)',
-            backdropFilter: 'blur(20px)',
-            animation: 'none'
-          }}
-        >
-          <ul className="flex flex-col gap-5 p-6 list-none">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a 
-                  href={link.href} 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block font-heading text-lg font-medium text-decoration-none"
-                  style={{ color: 'var(--text-muted)', textDecoration: 'none' }}
-                  onMouseEnter={(e) => e.target.style.color = 'var(--text-main)'}
-                  onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-            <li className="pt-2">
-              <a 
-                href="#contacto" 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="btn-accent w-full justify-center text-center text-decoration-none" 
-                style={{ display: 'flex', textDecoration: 'none' }}
+        <div style={{
+          background: 'hsla(140, 15%, 5%, 0.98)',
+          backdropFilter: 'blur(20px)',
+          borderTop: '1px solid hsla(0,0%,100%,0.05)',
+          padding: '16px 24px 24px',
+          maxHeight: '80vh',
+          overflowY: 'auto',
+        }}>
+          {megaMenuData.map((item) => (
+            <div key={item.label} style={{ borderBottom: '1px solid hsla(0,0%,100%,0.04)', marginBottom: '4px' }}>
+              <button
+                onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '14px 0',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-main)',
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
               >
-                Escríbenos
-              </a>
-            </li>
-          </ul>
+                {item.label}
+                <ChevronDown style={{ width: '16px', height: '16px', color: 'var(--text-muted)', transition: 'transform 0.2s', transform: mobileExpanded === item.label ? 'rotate(180deg)' : 'none' }} />
+              </button>
+              {mobileExpanded === item.label && (
+                <div style={{ paddingBottom: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {item.items.map((sub, si) => (
+                    <Link
+                      key={si}
+                      to={sub.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        color: 'var(--text-muted)',
+                        fontSize: '0.9rem',
+                        fontFamily: 'var(--font-heading)',
+                        background: 'hsla(0,0%,100%,0.02)',
+                      }}
+                    >
+                      <sub.icon style={{ width: '16px', height: '16px', color: 'var(--primary)', flexShrink: 0 }} />
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          <Link
+            to="/contacto"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="btn-accent"
+            style={{ display: 'flex', justifyContent: 'center', marginTop: '16px', textDecoration: 'none' }}
+          >
+            Contáctanos
+          </Link>
         </div>
       )}
     </nav>
