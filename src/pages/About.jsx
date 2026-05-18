@@ -2,7 +2,7 @@ import React from 'react';
 import { Award, Users, Target, Globe, TrendingUp, Heart } from 'lucide-react';
 
 const teamMembers = [
-  { name: 'Carlos Rivera', role: 'CEO & Co-Fundador', bio: 'Más de 15 años transformando empresas con tecnología disruptiva.' },
+  { name: 'Maxwell Valanthay Martinez', role: 'CEO & Co-Fundador', bio: 'Más de 15 años transformando empresas con tecnología disruptiva.' },
   { name: 'María González', role: 'CTO & Arquitecta de Nube', bio: 'Especialista certificada en Azure y AWS con certificaciones Gold.' },
   { name: 'Andrés Pérez', role: 'Director de Ciberseguridad', bio: 'Ethical Hacker certificado OSCP, ex-consultor de organismos regulatorios.' },
   { name: 'Luisa Herrera', role: 'Directora de Innovación', bio: 'PhD en Inteligencia Artificial aplicada a procesos empresariales.' },
