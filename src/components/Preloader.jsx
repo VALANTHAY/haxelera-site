@@ -62,7 +62,7 @@ function MatrixCanvas() {
 const COMMANDS = [
   '[SYSTEM] Initializing Haxelera.exe...',
   '[FIREWALL] Bypassing negativity...',
-  '[ACCESS] Connecting a tu vida...',
+  '[ACCESS] Connecting a tu sistema...',
   '[SUCCESS] Hackea el Sistema Successfully!',
   '[MESSAGE] "Hackea el Sistema, Usalo (Red Pill)',
   '         que el Sistema no hackee tu vida!"',
