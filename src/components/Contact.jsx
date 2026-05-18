@@ -40,6 +40,12 @@ export default function Contact() {
       address: '8333 N.W. 53rd Street Suite 450, Doral, FL 33166',
       phone: '(+1) 786 746-9789',
       email: 'sales@haxeleragroup.com'
+    },
+    {
+      country: 'Guatemala',
+      address: 'Diagonal 6, 10-65 Zona 10, Centro Gerencial Las Margaritas, Oficina 601',
+      phone: '(502) 4172-0060',
+      email: 'ventas@haxeleragroup.com.gt'
     }
   ];
 
