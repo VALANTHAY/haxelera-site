@@ -67,11 +67,10 @@ export default function MatrixPoemWidget() {
   }, [poemDisplayed]);
 
   return (
-    <section className="relative py-24 bg-dark overflow-hidden font-mono">
+    <div className="relative w-full font-mono flex flex-col items-center z-10">
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');`}</style>
       
-      <div className="section-container relative z-10 flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center" style={{ color: '#00ff99', fontFamily: "'Share Tech Mono', monospace", textShadow: '0 0 15px rgba(0,255,153,0.3)' }}>
+      <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center" style={{ color: '#00ff99', fontFamily: "'Share Tech Mono', monospace", textShadow: '0 0 15px rgba(0,255,153,0.3)' }}>
           HACKEA EL SISTEMA
         </h2>
 
@@ -138,7 +137,6 @@ export default function MatrixPoemWidget() {
         >
           {poemStarted ? 'EJECUTANDO SCRIPT...' : 'INICIAR HACK'}
         </button>
-      </div>
       
       <style>{`
         @keyframes blink-cursor {
@@ -146,6 +144,6 @@ export default function MatrixPoemWidget() {
           50% { opacity: 0; }
         }
       `}</style>
-    </section>
+    </div>
   );
 }

@@ -1,8 +1,6 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import TechMarquee from '../components/TechMarquee';
-import TerminalSimulator from '../components/TerminalSimulator';
-import MatrixPoemWidget from '../components/MatrixPoemWidget';
 import Services from '../components/Services';
 import Products from '../components/Products';
 import Testimonials from '../components/Testimonials';
@@ -15,8 +13,6 @@ export default function Home() {
     <main>
       <Hero />
       <TechMarquee />
-      <MatrixPoemWidget />
-      <TerminalSimulator />
       <Services />
       <Products />
       <Testimonials />
