@@ -1,120 +1,201 @@
-import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Terminal as TerminalIcon } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ShieldCheck } from 'lucide-react';
 
-export default function Preloader({ onComplete }) {
-  const [displayedLines, setDisplayedLines] = useState([]);
-  const [accessGranted, setAccessGranted] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
-
-  const codeLines = [
-    { text: "import { SecurityProtocol } from '@haxelera/core';", class: "code-import" },
-    { text: "import { NeuralNetwork } from '@haxelera/ai';", class: "code-import" },
-    { text: "", class: "" },
-    { text: "async function initializeDefenses() {", class: "code-function" },
-    { text: "  console.log('Initiating Secure Handshake...');", class: "code-string" },
-    { text: "  await SecurityProtocol.bypassFirewall();", class: "code-method" },
-    { text: "  ", class: "" },
-    { text: "  const nodes = NeuralNetwork.scanPerimeter({", class: "code-keyword" },
-    { text: "    depth: 'MAX_DEPTH',", class: "code-string" },
-    { text: "    encryption: 'AES-256-GCM'", class: "code-string" },
-    { text: "  });", class: "" },
-    { text: "  ", class: "" },
-    { text: "  if (nodes.isCompromised) {", class: "code-keyword" },
-    { text: "    throw new Error('Vulnerability Detected!');", class: "code-error" },
-    { text: "  }", class: "" },
-    { text: "  ", class: "" },
-    { text: "  return SecurityProtocol.grantAccess();", class: "code-keyword" },
-    { text: "}", class: "" },
-    { text: "", class: "" },
-    { text: "// Executing root protocol...", class: "code-comment" }
-  ];
+// ── Matrix Rain Canvas ──────────────────────────────────────────────
+function MatrixCanvas() {
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    let currentLineIndex = 0;
-    
-    // Type out the lines one by one
-    const typeLine = () => {
-      if (currentLineIndex < codeLines.length) {
-        setDisplayedLines(prev => [...prev, codeLines[currentLineIndex]]);
-        currentLineIndex++;
-        
-        // Randomize typing speed slightly for realism (between 100ms and 300ms)
-        const nextSpeed = Math.floor(Math.random() * 200) + 100;
-        setTimeout(typeLine, nextSpeed);
-      } else {
-        // Once all lines are typed, wait a moment then grant access
-        setTimeout(() => {
-          setAccessGranted(true);
-          
-          // Wait to show "Access Granted" then start fade out
-          setTimeout(() => {
-            setIsFadingOut(true);
-            
-            // Wait for fade out animation to finish before unmounting
-            setTimeout(() => {
-              onComplete();
-            }, 800); // matches the CSS transition duration
-          }, 1500);
-          
-        }, 800);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff99';
+      ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+
+      columns = Math.floor(canvas.width / fontSize);
+      while (drops.length < columns) drops.push(1);
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
       }
     };
 
-    // Start typing after a short initial delay
-    const initialDelay = setTimeout(typeLine, 500);
-    return () => clearTimeout(initialDelay);
+    const interval = setInterval(draw, 35);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}
+    />
+  );
+}
+
+// ── Preloader Component ─────────────────────────────────────────────
+const COMMANDS = [
+  '[SYSTEM] Initializing Haxelera.exe...',
+  '[FIREWALL] Bypassing negativity...',
+  '[ACCESS] Connecting a tu vida...',
+  '[SUCCESS] Hackea el Sistema Successfully!',
+  '[MESSAGE] "Hackea el Sistema, Usalo (Red Pill)',
+  '         que el Sistema no hackee tu vida!"',
+  '[HACK] "by Maxwell Valanthay" ;)',
+];
+
+export default function Preloader({ onComplete }) {
+  const [displayedLines, setDisplayedLines] = useState([]);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [accessGranted, setAccessGranted] = useState(false);
+
+  useEffect(() => {
+    let lineIdx = 0;
+    let charIdx = 0;
+    let buffer = [];
+
+    const delayBetween = 600;
+    const charDelay = 30;
+
+    const tick = () => {
+      if (lineIdx >= COMMANDS.length) {
+        // Finished typing
+        setTimeout(() => {
+          setAccessGranted(true);
+          setTimeout(() => {
+            setIsFadingOut(true);
+            setTimeout(() => onComplete(), 800); // Wait for fade out
+          }, 1500);
+        }, 500);
+        return;
+      }
+
+      if (charIdx === 0) {
+        buffer = [...buffer, ''];
+      }
+
+      const current = COMMANDS[lineIdx];
+      if (charIdx < current.length) {
+        buffer = buffer.map((l, i) =>
+          i === buffer.length - 1 ? l + current[charIdx] : l
+        );
+        setDisplayedLines([...buffer]);
+        charIdx++;
+        setTimeout(tick, charDelay);
+      } else {
+        lineIdx++;
+        charIdx = 0;
+        setTimeout(tick, delayBetween);
+      }
+    };
+
+    const start = setTimeout(tick, 500);
+    return () => clearTimeout(start);
   }, [onComplete]);
 
   return (
-    <div className={`preloader-container ${isFadingOut ? 'fade-out-up' : ''}`}>
-      <div className="pc-monitor">
-        {/* Monitor Header (macOS style) */}
-        <div className="monitor-header">
-          <div className="window-controls">
-            <div className="control close"></div>
-            <div className="control minimize"></div>
-            <div className="control maximize"></div>
-          </div>
-          <div className="window-title">
-            <TerminalIcon className="w-4 h-4" /> haxelera — bash
-          </div>
-        </div>
-        
-        {/* Monitor Screen / Code Editor */}
-        <div className="monitor-screen font-mono">
-          <div className="code-content">
-            {displayedLines.map((line, idx) => (
-              <div key={idx} className="code-line">
-                <span className="line-number">{idx + 1}</span>
-                <span className={`line-text ${line.class}`}>
-                  {line.text}
-                </span>
-              </div>
-            ))}
-            
-            {/* Blinking Cursor */}
-            {!accessGranted && (
-              <div className="code-line">
-                <span className="line-number">{displayedLines.length + 1}</span>
-                <span className="blinking-cursor"></span>
-              </div>
-            )}
-          </div>
+    <div 
+      style={{
+        position: 'fixed',
+        inset: 0,
+        backgroundColor: 'black',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        opacity: isFadingOut ? 0 : 1,
+        transition: 'opacity 0.8s ease-in-out',
+        fontFamily: "'Share Tech Mono', monospace"
+      }}
+    >
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');`}</style>
+      
+      <MatrixCanvas />
 
-          {/* Access Granted Overlay */}
+      {/* Terminal Window */}
+      <div style={{
+        position: 'relative',
+        zIndex: 10,
+        width: '90%',
+        maxWidth: '700px',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        border: '1px solid rgba(0, 255, 153, 0.3)',
+        borderRadius: '8px',
+        boxShadow: '0 0 20px rgba(0, 255, 153, 0.2)',
+        overflow: 'hidden',
+        padding: '24px'
+      }}>
+        {/* Terminal Header */}
+        <div style={{ display: 'flex', gap: '6px', marginBottom: '16px' }}>
+          <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56', display: 'inline-block' }}></span>
+          <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e', display: 'inline-block' }}></span>
+          <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f', display: 'inline-block' }}></span>
+          <span style={{ marginLeft: '12px', fontSize: '13px', color: '#00ff99', opacity: 0.6 }}>haxelera — bash</span>
+        </div>
+
+        {/* Terminal Body */}
+        <div style={{ color: '#00ff99', fontSize: '15px', lineHeight: '1.8' }}>
+          {displayedLines.map((line, i) => (
+            <div key={i}>
+              <span style={{ opacity: 0.5 }}>$ </span>{line}
+            </div>
+          ))}
+          
+          {/* Blinking Cursor */}
+          {!accessGranted && (
+            <div>
+              <span style={{ opacity: 0.5 }}>$ </span>
+              <span style={{ animation: 'blink-cursor 1s step-end infinite', borderLeft: '2px solid #00ff99' }}>&nbsp;</span>
+            </div>
+          )}
+
+          {/* Access Granted Message */}
           {accessGranted && (
-            <div className="access-granted-overlay">
-              <ShieldCheck className="w-16 h-16 text-primary animate-pulse-slow mb-4" />
-              <h2 className="font-heading font-extrabold text-3xl tracking-widest text-white mb-2">
+            <div style={{ marginTop: '24px', textAlign: 'center', animation: 'fade-in 0.5s ease' }}>
+              <ShieldCheck style={{ width: '40px', height: '40px', margin: '0 auto 12px', color: '#00ff99' }} />
+              <div style={{ fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px', textShadow: '0 0 10px #00ff99' }}>
                 [ ACCESS GRANTED ]
-              </h2>
-              <p className="font-mono text-primary text-sm tracking-widest">
-                SYSTEM INITIALIZED
-              </p>
+              </div>
             </div>
           )}
         </div>
       </div>
+
+      <style>{`
+        @keyframes blink-cursor {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }

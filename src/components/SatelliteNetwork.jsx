@@ -1,78 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { Radio } from 'lucide-react';
 
 export default function SatelliteNetwork() {
-  const [targets, setTargets] = useState([]);
-  const svgRef = useRef(null);
-
-  // Function to find target elements and calculate paths
-  const calculatePaths = () => {
-    // Find all elements we want to connect to. Let's target service cards and product cards for now.
-    const elements = Array.from(document.querySelectorAll('.glass-card'));
-    
-    // We only want a few connections to avoid clutter (e.g., first 4)
-    const selectedElements = elements.slice(0, 4);
-
-    const dishPos = {
-      x: window.innerWidth - 60, // Top right corner offset
-      y: 80
-    };
-
-    const newTargets = selectedElements.map((el, index) => {
-      const rect = el.getBoundingClientRect();
-      
-      // Calculate attachment point (e.g., top-left corner of the card)
-      // Since the SVG covers the whole document (absolute), we need coordinates relative to the document
-      const endX = rect.left + window.scrollX + 20; 
-      const endY = rect.top + window.scrollY + 20;
-      
-      // Control points for the Bezier curve
-      const cp1X = dishPos.x - 150;
-      const cp1Y = dishPos.y + 100;
-      const cp2X = endX + (index % 2 === 0 ? 100 : -100);
-      const cp2Y = endY - 150;
-
-      const pathData = `M ${dishPos.x} ${dishPos.y} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
-
-      return {
-        id: `path-${index}`,
-        d: pathData
-      };
-    });
-
-    setTargets(newTargets);
-  };
-
-  useEffect(() => {
-    // Initial calculation (need a slight delay for other components to render)
-    const timeout = setTimeout(calculatePaths, 500);
-
-    // Recalculate on resize
-    window.addEventListener('resize', calculatePaths);
-
-    // We also need to recalculate if the DOM changes, but for simplicity, 
-    // resize and initial load should cover the main layout.
-    // If the SVG is position: absolute covering the whole document, 
-    // and the dish is also absolute, they scroll together.
-    // If the dish is fixed, we would need to redraw on scroll.
-    // We will make the dish and SVG absolute to the document body for better performance.
-
-    return () => {
-      clearTimeout(timeout);
-      window.removeEventListener('resize', calculatePaths);
-    };
-  }, []);
-
   return (
-    <div className="satellite-network-wrapper">
+    <div className="satellite-network-wrapper-fixed">
       {/* 
-        The SVG container is absolute and covers the entire document height.
-        This allows lines to connect elements throughout the page without recalculating on scroll.
+        Fixed SVG overlay covering the screen.
+        High performance since it doesn't recalculate on scroll.
       */}
       <svg 
-        ref={svgRef}
-        className="fiber-cables-svg" 
+        className="fiber-cables-svg-fixed" 
         xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
       >
         <defs>
           <filter id="glow-cable" x="-20%" y="-20%" width="140%" height="140%">
@@ -81,31 +20,33 @@ export default function SatelliteNetwork() {
           </filter>
         </defs>
 
-        {targets.map((target, index) => (
-          <g key={target.id}>
-            {/* Base cable (dim) */}
-            <path 
-              className="fiber-base"
-              d={target.d} 
-              fill="none"
-              stroke="hsla(135, 25%, 55%, 0.15)"
-              strokeWidth="1.5"
-            />
-            {/* Animated data flow (bright, moving) */}
-            <path 
-              className={`fiber-data fiber-anim-${index % 3}`}
-              d={target.d} 
-              fill="none"
-              stroke="var(--primary)"
-              strokeWidth="2"
-              filter="url(#glow-cable)"
-            />
-          </g>
-        ))}
+        {/* Cable 1: Curving left and down */}
+        <g>
+          <path className="fiber-base" d="M calc(100vw - 60px) 100 C calc(100vw - 30vw) 20vh, calc(100vw - 60vw) 50vh, -100 80vh" fill="none" stroke="hsla(135, 25%, 55%, 0.15)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-0" d="M calc(100vw - 60px) 100 C calc(100vw - 30vw) 20vh, calc(100vw - 60vw) 50vh, -100 80vh" fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+        </g>
+
+        {/* Cable 2: Sweeping down to bottom left */}
+        <g>
+          <path className="fiber-base" d="M calc(100vw - 60px) 100 C calc(100vw - 10vw) 40vh, 20vw 80vh, 10vw 120vh" fill="none" stroke="hsla(135, 25%, 55%, 0.15)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-1" d="M calc(100vw - 60px) 100 C calc(100vw - 10vw) 40vh, 20vw 80vh, 10vw 120vh" fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+        </g>
+
+        {/* Cable 3: Dropping almost straight down */}
+        <g>
+          <path className="fiber-base" d="M calc(100vw - 60px) 100 C calc(100vw - 200px) 50vh, calc(100vw - 400px) 80vh, calc(100vw - 300px) 120vh" fill="none" stroke="hsla(135, 25%, 55%, 0.15)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-2" d="M calc(100vw - 60px) 100 C calc(100vw - 200px) 50vh, calc(100vw - 400px) 80vh, calc(100vw - 300px) 120vh" fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+        </g>
+
+        {/* Cable 4: Crossing far left */}
+        <g>
+          <path className="fiber-base" d="M calc(100vw - 60px) 100 C 50vw 10vh, 10vw 30vh, -50 60vh" fill="none" stroke="hsla(135, 25%, 55%, 0.15)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-0" d="M calc(100vw - 60px) 100 C 50vw 10vh, 10vw 30vh, -50 60vh" fill="none" stroke="var(--primary)" strokeWidth="2" filter="url(#glow-cable)" />
+        </g>
       </svg>
 
-      {/* Satellite Dish Icon (Fixed relative to document top-right) */}
-      <div className="satellite-dish-absolute">
+      {/* Satellite Dish Icon */}
+      <div className="satellite-dish-fixed">
         <div className="signal-ring signal-ring-1"></div>
         <div className="signal-ring signal-ring-2"></div>
         <div className="dish-icon-container">
