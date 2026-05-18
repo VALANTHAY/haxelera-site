@@ -1,32 +1,12 @@
 import React from 'react';
-import { Phone, MapPin, Mail, Shield, Globe, GitFork, Send } from 'lucide-react';
+import { Globe, GitFork, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
-  const offices = [
-    {
-      country: 'República Dominicana',
-      phone: '(+1) 809 789-5432',
-      address: 'Torre Haxelera, Av. Winston Churchill #109, Piantini, Santo Domingo, DN, 10148',
-      email: 'ventas.dr@haxelera.com'
-    },
-    {
-      country: 'Estados Unidos',
-      phone: '(+1) 305 456-7890',
-      address: '1200 Brickell Ave, Suite 800, Miami, FL 33131',
-      email: 'sales.us@haxelera.com'
-    },
-    {
-      country: 'Guatemala',
-      phone: '(+502) 2333-8888',
-      address: 'Diagonal 6, 12-34 Zona 10, Centro Gerencial Margaritas, Torre II, Oficina 902',
-      email: 'ventas.gt@haxelera.com'
-    }
-  ];
-
   return (
     <footer className="relative border-t border-white border-opacity-5" style={{ borderTop: '1px solid hsla(0, 0%, 100%, 0.05)', backgroundColor: 'hsl(140, 15%, 5%)', padding: '80px 24px 40px' }}>
       
-      <div className="max-width-1200 mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-16 text-left" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '32px', marginBottom: '64px' }}>
+      <div className="max-width-1200 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-left" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px', marginBottom: '64px' }}>
         
         {/* Brand Column */}
         <div className="flex flex-col items-start gap-4">
@@ -42,7 +22,7 @@ export default function Footer() {
               }} 
             />
           </div>
-          <p className="font-body text-xs text-muted leading-relaxed" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+          <p className="font-body text-xs text-muted leading-relaxed" style={{ color: 'var(--text-muted)', fontSize: '0.75rem', maxWidth: '320px' }}>
             Líderes en ingeniería de software y ciberseguridad corporativa. Diseñamos arquitecturas seguras y de alto impacto para proteger el futuro de su negocio.
           </p>
           {/* Social Links */}
@@ -59,32 +39,69 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Office Columns */}
-        {offices.map((office, idx) => (
-          <div key={idx} className="flex flex-col items-start gap-4">
-            <h4 className="font-heading font-bold text-sm text-white uppercase tracking-wider">
-              {office.country}
-            </h4>
-            <ul className="flex flex-col gap-3 font-body text-xs text-muted list-none" style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-              <li className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" style={{ color: 'var(--primary)' }} />
-                <a href={`tel:${office.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
-                  {office.phone}
-                </a>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" style={{ color: 'var(--primary)' }} />
-                <span>{office.address}</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" style={{ color: 'var(--primary)' }} />
-                <a href={`mailto:${office.email}`} className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
-                  {office.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-        ))}
+        {/* Navigation Column */}
+        <div className="flex flex-col items-start gap-4">
+          <h4 className="font-heading font-bold text-sm text-white uppercase tracking-wider">
+            Navegación
+          </h4>
+          <ul className="flex flex-col gap-3 font-body text-xs text-muted list-none" style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text-muted)', fontSize: '0.75rem', paddingLeft: 0 }}>
+            <li>
+              <Link to="/" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Inicio
+              </Link>
+            </li>
+            <li>
+              <Link to="/nosotros" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Nosotros
+              </Link>
+            </li>
+            <li>
+              <Link to="/software" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Desarrollo de Software
+              </Link>
+            </li>
+            <li>
+              <Link to="/nube" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Servicios Cloud
+              </Link>
+            </li>
+            <li>
+              <Link to="/contacto" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Contacto
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Solutions Column */}
+        <div className="flex flex-col items-start gap-4">
+          <h4 className="font-heading font-bold text-sm text-white uppercase tracking-wider">
+            Servicios Avanzados
+          </h4>
+          <ul className="flex flex-col gap-3 font-body text-xs text-muted list-none" style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text-muted)', fontSize: '0.75rem', paddingLeft: 0 }}>
+            <li>
+              <Link to="/software" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Desarrollo Seguro a Medida
+              </Link>
+            </li>
+            <li>
+              <Link to="/nube" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Migración & Nube Zero Trust
+              </Link>
+            </li>
+            <li>
+              <Link to="/data-ai" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Inteligencia Artificial & Big Data
+              </Link>
+            </li>
+            <li>
+              <Link to="/contacto" className="hover:text-white transition-all text-decoration-none" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>
+                Auditorías & Pentesting SOC
+              </Link>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
       {/* Bottom Copyright Bar */}

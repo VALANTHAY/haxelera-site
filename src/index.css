@@ -113,6 +113,14 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-text-fill-color: transparent;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 100px;
+}
+
 /* Layout Utilities */
 .section-container {
   max-width: 1200px;

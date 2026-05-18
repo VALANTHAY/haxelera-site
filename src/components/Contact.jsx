@@ -55,14 +55,14 @@ export default function Contact() {
         <div className="grid md:grid-cols-12 gap-12 items-start" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px' }}>
           
           {/* Left Side Details */}
-          <div className="md:col-span-5 flex flex-col items-start text-left" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
-            <div className="section-tag section-tag-copper">
+          <div className="md:col-span-5 flex flex-col items-center text-center md:items-start md:text-left z-10" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="section-tag section-tag-copper mb-4">
               CONTÁCTANOS
             </div>
-            <h3 className="section-title font-heading font-bold text-white mb-6">
+            <h3 className="section-title font-heading font-bold text-white mb-6" style={{ width: '100%' }}>
               Inicia la Evolución de tu <span className="gradient-text-sage">Infraestructura</span>
             </h3>
-            <p className="font-body text-muted leading-relaxed mb-8" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px' }}>
+            <p className="font-body text-muted leading-relaxed mb-8 mx-auto md:mx-0" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px', maxWidth: '540px' }}>
               Ya sea que necesites una arquitectura de software a la medida, migrar tus sistemas a la Nube o proteger tu perímetro digital, nuestro equipo está listo para intervenir.
             </p>
 
