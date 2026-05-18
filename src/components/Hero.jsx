@@ -34,10 +34,12 @@ export default function Hero() {
             SOC 24/7: Operaciones de Seguridad Activas
           </div>
           
-          <h1 className="text-5xl font-extrabold leading-tight mb-6 font-heading" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.15', marginBottom: '24px' }}>
-            <span className="gradient-text-sage">Ingeniería de Software</span><br />
-            <span className="text-white text-glow-sage">de Alto Rendimiento.</span><br />
-            <span className="gradient-text-copper">Ciberseguridad Blindada.</span>
+          <h1 className="text-5xl font-extrabold font-heading" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.6rem)', lineHeight: '1.2', marginBottom: '24px' }}>
+            <span style={{ display: 'block', marginBottom: '4px' }}>
+              <span className="gradient-text-sage">Ingeniería de Software</span>
+              <span className="text-white text-glow-sage" style={{ marginLeft: '0.4em' }}>de Alto Rendimiento.</span>
+            </span>
+            <span className="gradient-text-copper" style={{ display: 'block' }}>Ciberseguridad Blindada.</span>
           </h1>
           
           <p className="text-lg text-muted mb-8 font-body max-w-xl" style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '32px', maxWidth: '540px' }}>

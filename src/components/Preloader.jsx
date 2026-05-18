@@ -76,7 +76,7 @@ export default function Preloader({ onComplete }) {
             <div className="control maximize"></div>
           </div>
           <div className="window-title">
-            <TerminalIcon className="w-4 h-4" /> root@haxelera-core:~
+            <TerminalIcon className="w-4 h-4" /> haxelera — bash
           </div>
         </div>
         
