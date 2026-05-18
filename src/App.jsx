@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import Preloader from './components/Preloader';
+import SatelliteNetwork from './components/SatelliteNetwork';
 
 // Pages
 import Home from './pages/Home';
@@ -65,6 +66,7 @@ function MainShell() {
         }}
       >
         <div className="grid-overlay"></div>
+        <SatelliteNetwork />
         <WhatsAppWidget />
         <Navbar />
 

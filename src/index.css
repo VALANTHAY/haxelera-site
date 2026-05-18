@@ -757,3 +757,98 @@ h1, h2, h3, h4, h5, h6 {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ==========================================================================
+   Satellite Network & Fiber Optics
+   ========================================================================== */
+
+.satellite-network-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.fiber-cables-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.satellite-dish-absolute {
+  position: absolute;
+  top: 100px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dish-icon-container {
+  position: relative;
+  z-index: 2;
+  background: hsla(140, 15%, 8%, 0.8);
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 153, 0.3);
+}
+
+.signal-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+}
+
+.signal-ring-1 {
+  width: 100%;
+  height: 100%;
+  animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.signal-ring-2 {
+  width: 100%;
+  height: 100%;
+  animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Fiber Data Animation */
+.fiber-data {
+  stroke-dasharray: 40 800;
+  animation: data-travel linear infinite;
+  stroke-linecap: round;
+}
+
+.fiber-anim-0 { animation-duration: 3.5s; }
+.fiber-anim-1 { animation-duration: 4.5s; animation-delay: 1s; }
+.fiber-anim-2 { animation-duration: 4s; animation-delay: 2s; }
+
+@keyframes data-travel {
+  0% { stroke-dashoffset: 840; }
+  100% { stroke-dashoffset: 0; }
+}
