@@ -9,6 +9,7 @@ export default function Products() {
       tagline: 'Perímetro Inteligente & Detección Activa con IA',
       description: 'HaxSentinel es una plataforma avanzada de detección y respuesta ante amenazas (XDR) impulsada por IA. Escanea constantemente las redes empresariales, aísla vectores de ataque en segundos y neutraliza incidentes críticos de manera autónoma antes de que afecten la infraestructura central.',
       icon: Shield,
+      image: '/haxsentinel.png',
       accent: 'copper',
       features: [
         'Detección y contención de malware en tiempo real con modelos ML.',
@@ -23,6 +24,7 @@ export default function Products() {
       tagline: 'Orquestación Segura & Despliegues Multi-Nube',
       description: 'HaxFlow es nuestro orquestador DevSecOps de alto rendimiento. Permite a los equipos de ingeniería automatizar compilaciones y despliegues (CI/CD) con escaneos de código estáticos y dinámicos incorporados en cada commit, garantizando que el software entregado cumpla con el estándar Zero-Trust.',
       icon: Workflow,
+      image: '/haxflow.png',
       accent: 'sage',
       features: [
         'Análisis estático de seguridad (SAST) integrado y automático.',
@@ -71,39 +73,39 @@ export default function Products() {
                   padding: '48px',
                 }}
               >
-                {/* Product Badge/Icon (visual illustration) */}
+                {/* Product Visual / Image */}
                 <div 
-                  className={`flex flex-col justify-center items-center p-8 rounded-2xl border bg-black bg-opacity-35 order-1 ${
+                  className={`relative flex justify-center items-center rounded-2xl border overflow-hidden order-1 group ${
                     isEven ? 'md:order-1 md:col-span-5' : 'md:order-2 md:col-span-5'
                   }`}
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(0,0,0,0.3)',
                     borderColor: 'var(--glass-border)',
                     borderRadius: '16px',
-                    padding: '40px',
-                    minHeight: '260px'
+                    minHeight: '300px',
+                    boxShadow: isCopper ? '0 10px 30px -10px var(--accent-glow)' : '0 10px 30px -10px var(--primary-glow)'
                   }}
                 >
-                  <div 
-                    className="p-4 rounded-full border mb-4 animate-pulse-slow"
-                    style={{
-                      color: isCopper ? 'var(--accent)' : 'var(--primary)',
-                      borderColor: isCopper ? 'hsla(30, 45%, 45%, 0.2)' : 'hsla(135, 25%, 55%, 0.2)',
-                      background: isCopper ? 'var(--accent-glow)' : 'var(--primary-glow)',
-                    }}
-                  >
-                    <IconComponent className="w-12 h-12" />
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                    style={{ mixBlendMode: 'luminosity' }}
+                  />
+                  
+                  {/* Subtle Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                  
+                  <div className="absolute bottom-6 left-6 flex flex-col z-10">
+                    <div className="flex items-center gap-2 mb-2">
+                      <IconComponent className="w-5 h-5" style={{ color: isCopper ? 'var(--accent)' : 'var(--primary)' }} />
+                      <span className="font-heading font-extrabold text-xl text-white tracking-wide">
+                        {product.name}
+                      </span>
+                    </div>
+                    <span className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>
+                      Enterprise System v2.4
+                    </span>
                   </div>
-                  <span className="font-heading font-extrabold text-2xl text-white tracking-wide mb-1">
-                    {product.name}
-                  </span>
-                  <span className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--text-dark)' }}>
-                    Enterprise System v2.4
-                  </span>
                 </div>
 
                 {/* Product Copy Details */}
