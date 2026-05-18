@@ -15,10 +15,10 @@ export default function Footer() {
               src="/logo.png" 
               alt="Haxelera Group Logo" 
               style={{ 
-                height: '60px', 
+                height: '55px', 
                 width: 'auto',
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 0 10px rgba(0, 255, 153, 0.2))'
+                filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.15))'
               }} 
             />
           </div>

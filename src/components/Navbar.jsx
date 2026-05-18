@@ -192,10 +192,10 @@ export default function Navbar() {
             src="/logo.png" 
             alt="Haxelera Group Logo" 
             style={{ 
-              height: '50px', 
+              height: '45px', 
               width: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 10px rgba(0, 255, 153, 0.2))'
+              filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.15))'
             }} 
           />
         </Link>
