@@ -1,68 +1,232 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Terminal } from 'lucide-react';
 
 export default function TerminalSimulator() {
-  const [text, setText] = useState('');
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
+  const [history, setHistory] = useState([]);
+  const [currentInput, setCurrentInput] = useState('');
+  const [isTypingIntro, setIsTypingIntro] = useState(true);
+  const [introText, setIntroText] = useState('');
+  const inputRef = useRef(null);
+  const containerRef = useRef(null);
 
-  const lines = [
+  const introLines = [
     '> Initializing Zero-Trust Protocol...',
-    '> Scanning network perimeter for vulnerabilities...',
-    '> 0 threats detected in active endpoints.',
     '> Secure connection established.',
-    '> Awaiting command_'
+    '> Welcome to HaxShell v2.4 — Type "help" for available commands.',
   ];
 
+  // Intro typing animation
   useEffect(() => {
-    if (lineIndex < lines.length) {
-      if (charIndex < lines[lineIndex].length) {
-        const timeout = setTimeout(() => {
-          setText((prev) => prev + lines[lineIndex][charIndex]);
-          setCharIndex(charIndex + 1);
-        }, 40 + Math.random() * 40);
-        return () => clearTimeout(timeout);
-      } else {
-        const timeout = setTimeout(() => {
-          setText((prev) => prev + '\n');
-          setLineIndex(lineIndex + 1);
-          setCharIndex(0);
-        }, 600);
-        return () => clearTimeout(timeout);
+    let lineIdx = 0;
+    let charIdx = 0;
+    let current = '';
+
+    const typeNext = () => {
+      if (lineIdx >= introLines.length) {
+        setIsTypingIntro(false);
+        return;
       }
+
+      if (charIdx < introLines[lineIdx].length) {
+        current += introLines[lineIdx][charIdx];
+        setIntroText(current);
+        charIdx++;
+        setTimeout(typeNext, 30 + Math.random() * 30);
+      } else {
+        current += '\n';
+        setIntroText(current);
+        lineIdx++;
+        charIdx = 0;
+        setTimeout(typeNext, 400);
+      }
+    };
+
+    typeNext();
+  }, []);
+
+  const processCommand = useCallback((cmd) => {
+    const trimmedCmd = cmd.trim().toLowerCase();
+    let output = '';
+
+    switch (trimmedCmd) {
+      case 'help':
+        output = `Comandos disponibles:
+  help        — Muestra esta ayuda
+  status      — Estado del sistema de seguridad
+  scan        — Escaneo de vulnerabilidades
+  whoami      — Información de la sesión
+  services    — Lista de servicios Haxelera
+  clear       — Limpiar terminal
+  contact     — Información de contacto`;
+        break;
+      case 'status':
+        output = `╔══════════════════════════════════════╗
+║  HAXELERA SECURITY STATUS REPORT    ║
+╠══════════════════════════════════════╣
+║  Firewall:       ██████████ ACTIVE  ║
+║  Threat Level:   ▓░░░░░░░░░ LOW     ║
+║  Endpoints:      247 monitored      ║
+║  Last Incident:  None (72h)         ║
+║  Uptime:         99.98%             ║
+╚══════════════════════════════════════╝`;
+        break;
+      case 'scan':
+        output = `[SCAN] Initiating perimeter scan...
+[SCAN] Checking port 443... SECURE
+[SCAN] Checking port 80... REDIRECTED → 443
+[SCAN] Checking port 22... FILTERED
+[SCAN] Checking port 3306... BLOCKED
+[SCAN] DNS leak test... PASSED
+[SCAN] SSL/TLS certificate... VALID (A+ rating)
+[SCAN] ✅ 0 vulnerabilities found. System is secure.`;
+        break;
+      case 'whoami':
+        output = `Session: guest@haxelera-public
+Role: VISITOR
+Access Level: READ-ONLY
+IP: [REDACTED]
+Encryption: AES-256-GCM
+Protocol: Zero-Trust Verified`;
+        break;
+      case 'services':
+        output = `Servicios de Haxelera Group:
+  1. Desarrollo de Software a Medida
+  2. Arquitectura DevOps & SRE
+  3. Ciberseguridad Ofensiva & Defensiva
+  4. Cloud Security & Modern Workplace
+  5. Data, Analytics & IA Segura
+  6. Auditoría & Cumplimiento TI`;
+        break;
+      case 'clear':
+        setHistory([]);
+        return;
+      case 'contact':
+        output = `📧 info@haxeleragroup.com
+📱 +1 (809) 789-5432
+🌐 haxeleragroup.com
+💬 WhatsApp: Click the green button →`;
+        break;
+      case '':
+        return;
+      default:
+        output = `haxshell: command not found: "${trimmedCmd}"\nType "help" for available commands.`;
+        break;
     }
-  }, [lineIndex, charIndex, lines]);
+
+    setHistory((prev) => [...prev, { command: cmd, output }]);
+  }, []);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      processCommand(currentInput);
+      setCurrentInput('');
+    }
+  };
+
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [history, introText]);
 
   return (
     <section className="relative py-12 flex justify-center w-full px-6" style={{ overflow: 'hidden' }}>
       <div 
-        className="glass-card max-w-4xl w-full mx-auto relative group overflow-hidden" 
+        className="glass-card w-full mx-auto relative overflow-hidden" 
         style={{ 
+          maxWidth: '900px',
           border: '1px solid hsla(135, 25%, 55%, 0.2)', 
-          padding: '24px',
-          backgroundColor: 'hsla(0,0%,0%,0.4)'
+          padding: '0',
+          backgroundColor: 'hsla(0,0%,0%,0.5)',
+          borderRadius: '12px',
         }}
+        onClick={focusInput}
       >
-        <div className="flex items-center gap-3 border-b border-white border-opacity-10 pb-4 mb-4" style={{ borderColor: 'var(--glass-border)' }}>
+        {/* Terminal Header Bar */}
+        <div 
+          className="flex items-center gap-3 px-4 py-3" 
+          style={{ 
+            background: 'hsla(0,0%,100%,0.03)',
+            borderBottom: '1px solid hsla(0,0%,100%,0.06)',
+          }}
+        >
           <div className="flex gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 opacity-70" style={{ backgroundColor: '#ef4444' }}></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-70" style={{ backgroundColor: '#eab308' }}></div>
-            <div className="w-3 h-3 rounded-full bg-green-500 opacity-70" style={{ backgroundColor: '#22c55e' }}></div>
+            <div style={{ backgroundColor: '#ef4444', width: '12px', height: '12px', borderRadius: '50%', opacity: 0.8 }}></div>
+            <div style={{ backgroundColor: '#eab308', width: '12px', height: '12px', borderRadius: '50%', opacity: 0.8 }}></div>
+            <div style={{ backgroundColor: '#22c55e', width: '12px', height: '12px', borderRadius: '50%', opacity: 0.8 }}></div>
           </div>
-          <div className="flex-1 flex justify-center">
-            <span className="text-xs font-mono text-muted tracking-widest flex items-center gap-2" style={{ color: 'var(--text-muted)' }}>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <span className="text-xs font-mono tracking-widest flex items-center gap-2" style={{ color: 'var(--text-muted)' }}>
               <Terminal className="w-3 h-3" /> system@haxelera: ~
             </span>
           </div>
         </div>
         
-        <div className="font-mono text-sm leading-loose whitespace-pre-wrap min-h-[160px]" style={{ color: 'var(--primary)', textShadow: '0 0 5px var(--primary-glow)' }}>
-          {text}
-          <span className="animate-pulse">_</span>
-        </div>
+        {/* Terminal Body */}
+        <div 
+          ref={containerRef}
+          className="font-mono text-sm leading-relaxed p-4 overflow-y-auto"
+          style={{ 
+            color: 'var(--primary)', 
+            textShadow: '0 0 4px var(--primary-glow)',
+            minHeight: '220px',
+            maxHeight: '400px',
+          }}
+        >
+          {/* Intro animation */}
+          <pre className="whitespace-pre-wrap" style={{ margin: 0, fontFamily: 'inherit' }}>{introText}</pre>
 
-        {/* Ambient glow */}
-        <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity duration-1000" style={{ backgroundColor: 'var(--primary)' }}></div>
+          {/* Command history */}
+          {history.map((entry, idx) => (
+            <div key={idx} style={{ marginTop: '8px' }}>
+              <div>
+                <span style={{ color: 'var(--accent)' }}>guest@haxelera</span>
+                <span style={{ color: 'var(--text-muted)' }}>:</span>
+                <span style={{ color: '#60a5fa' }}>~</span>
+                <span style={{ color: 'var(--text-muted)' }}>$ </span>
+                <span style={{ color: 'var(--text-main)' }}>{entry.command}</span>
+              </div>
+              <pre className="whitespace-pre-wrap" style={{ margin: '4px 0 0 0', fontFamily: 'inherit', color: 'var(--primary)' }}>{entry.output}</pre>
+            </div>
+          ))}
+
+          {/* Active input line */}
+          {!isTypingIntro && (
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}>
+              <span style={{ color: 'var(--accent)' }}>guest@haxelera</span>
+              <span style={{ color: 'var(--text-muted)' }}>:</span>
+              <span style={{ color: '#60a5fa' }}>~</span>
+              <span style={{ color: 'var(--text-muted)' }}>$ </span>
+              <input 
+                ref={inputRef}
+                type="text"
+                value={currentInput}
+                onChange={(e) => setCurrentInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                autoFocus
+                spellCheck={false}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  outline: 'none',
+                  color: 'var(--text-main)',
+                  fontFamily: 'monospace',
+                  fontSize: 'inherit',
+                  flex: 1,
+                  padding: 0,
+                  caretColor: 'var(--primary)',
+                }}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

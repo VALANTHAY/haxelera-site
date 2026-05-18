@@ -1,5 +1,5 @@
 import React from 'react';
-import { Eye, Shield, Workflow, CheckCircle, Cpu, Zap } from 'lucide-react';
+import { Shield, Workflow, CheckCircle } from 'lucide-react';
 
 export default function Products() {
   const proprietaryProducts = [
@@ -42,11 +42,11 @@ export default function Products() {
 
       <div className="section-container">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-16" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '64px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '64px' }}>
           <div className="section-tag section-tag-copper">
             INNOVACIÓN PROPIA
           </div>
-          <h2 className="section-title font-heading font-bold text-white max-w-2xl">
+          <h2 className="section-title font-heading font-bold text-white">
             Nuestros <span className="gradient-text-dual">Productos Tecnológicos</span>
           </h2>
           <p className="section-subtitle">
@@ -55,83 +55,116 @@ export default function Products() {
         </div>
 
         {/* Products Showcase */}
-        <div className="flex flex-col gap-16" style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '64px' }}>
           {proprietaryProducts.map((product, index) => {
             const IconComponent = product.icon;
             const isCopper = product.accent === 'copper';
-            const isEven = index % 2 === 0;
+            const isReversed = index % 2 !== 0;
 
             return (
               <div 
                 key={product.id}
-                className="glass-card grid md:grid-cols-12 gap-8 items-center"
+                className="glass-card"
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '40px',
-                  border: isCopper ? '1px solid hsla(30, 45%, 45%, 0.1)' : '1px solid hsla(135, 25%, 55%, 0.1)',
-                  padding: '48px',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '0',
+                  border: isCopper ? '1px solid hsla(30, 45%, 45%, 0.15)' : '1px solid hsla(135, 25%, 55%, 0.15)',
+                  padding: '0',
+                  overflow: 'hidden',
+                  borderRadius: '20px',
                 }}
               >
-                {/* Product Visual / Image */}
+                {/* Image Side */}
                 <div 
-                  className={`relative flex justify-center items-center rounded-2xl border overflow-hidden order-1 group ${
-                    isEven ? 'md:order-1 md:col-span-5' : 'md:order-2 md:col-span-5'
-                  }`}
                   style={{
-                    borderColor: 'var(--glass-border)',
-                    borderRadius: '16px',
-                    minHeight: '300px',
-                    boxShadow: isCopper ? '0 10px 30px -10px var(--accent-glow)' : '0 10px 30px -10px var(--primary-glow)'
+                    position: 'relative',
+                    minHeight: '420px',
+                    order: isReversed ? 2 : 1,
+                    overflow: 'hidden',
                   }}
                 >
                   <img 
                     src={product.image} 
                     alt={product.name} 
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                    style={{ mixBlendMode: 'luminosity' }}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      opacity: 0.9,
+                      transition: 'transform 0.7s ease, opacity 0.5s ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.opacity = '1'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.opacity = '0.9'; }}
                   />
                   
-                  {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
-                  
-                  <div className="absolute bottom-6 left-6 flex flex-col z-10">
-                    <div className="flex items-center gap-2 mb-2">
-                      <IconComponent className="w-5 h-5" style={{ color: isCopper ? 'var(--accent)' : 'var(--primary)' }} />
-                      <span className="font-heading font-extrabold text-xl text-white tracking-wide">
-                        {product.name}
-                      </span>
-                    </div>
-                    <span className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--text-muted)' }}>
-                      Enterprise System v2.4
+                  {/* Gradient overlay for readability */}
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: isReversed 
+                      ? 'linear-gradient(to left, rgba(0,0,0,0.7) 0%, transparent 100%)'
+                      : 'linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 100%)',
+                    pointerEvents: 'none',
+                  }}></div>
+
+                  {/* Product badge overlay */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '24px',
+                    left: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    zIndex: 2,
+                  }}>
+                    <IconComponent style={{ width: '20px', height: '20px', color: isCopper ? 'var(--accent)' : 'var(--primary)' }} />
+                    <span className="font-heading font-extrabold text-white" style={{ fontSize: '1.3rem' }}>
+                      {product.name}
+                    </span>
+                    <span className="font-mono" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginLeft: '4px' }}>
+                      v2.4
                     </span>
                   </div>
                 </div>
 
-                {/* Product Copy Details */}
+                {/* Text Side */}
                 <div 
-                  className={`flex flex-col items-start text-left order-2 ${
-                    isEven ? 'md:order-2 md:col-span-7' : 'md:order-1 md:col-span-7'
-                  }`}
-                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}
+                  style={{
+                    padding: '48px 40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    order: isReversed ? 1 : 2,
+                  }}
                 >
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: isCopper ? 'var(--accent)' : 'var(--primary)', width: '8px', height: '8px', borderRadius: '50%' }}></span>
-                    <span className="font-heading text-xs font-bold uppercase tracking-wider" style={{ color: isCopper ? 'var(--accent)' : 'var(--primary)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                    <span style={{ 
+                      width: '8px', height: '8px', borderRadius: '50%', 
+                      backgroundColor: isCopper ? 'var(--accent)' : 'var(--primary)',
+                    }}></span>
+                    <span className="font-heading" style={{ 
+                      fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em',
+                      color: isCopper ? 'var(--accent)' : 'var(--primary)' 
+                    }}>
                       {product.tagline}
                     </span>
                   </div>
                   
-                  <p className="font-body text-muted mb-6 leading-relaxed" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '24px' }}>
+                  <p className="font-body" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '24px', lineHeight: 1.7 }}>
                     {product.description}
                   </p>
 
-                  <ul className="flex flex-col gap-3 list-none mb-8" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+                  <ul style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', listStyle: 'none', padding: 0, margin: 0 }}>
                     {product.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3 font-body text-sm" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: 'var(--text-main)', fontSize: '0.875rem' }}>
+                      <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', color: 'var(--text-main)', fontSize: '0.875rem' }}>
                         <CheckCircle 
-                          className="w-4 h-4 mt-0.5 flex-shrink-0" 
-                          style={{ color: isCopper ? 'var(--accent)' : 'var(--primary)' }} 
+                          style={{ 
+                            width: '16px', height: '16px', flexShrink: 0, marginTop: '2px',
+                            color: isCopper ? 'var(--accent)' : 'var(--primary)' 
+                          }} 
                         />
                         <span>{feature}</span>
                       </li>
@@ -140,8 +173,8 @@ export default function Products() {
 
                   <a 
                     href="#contacto" 
-                    className={isCopper ? 'btn-accent py-2.5 px-6' : 'btn-primary py-2.5 px-6'}
-                    style={{ fontSize: '0.9rem' }}
+                    className={isCopper ? 'btn-accent' : 'btn-primary'}
+                    style={{ fontSize: '0.9rem', alignSelf: 'flex-start' }}
                   >
                     Solicitar Demo de {product.name}
                   </a>

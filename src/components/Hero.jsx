@@ -4,7 +4,7 @@ import { ArrowRight, ShieldCheck, Terminal, Network, Activity } from 'lucide-rea
 export default function Hero() {
   return (
     <section id="inicio" className="relative min-vh-100 flex items-center overflow-hidden" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '120px' }}>
-      {/* 3D Cyber-Operations Background Image Overlay */}
+      {/* Animated Team Background with Ken Burns effect */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -13,11 +13,12 @@ export default function Hero() {
           backgroundImage: 'url("/haxelera_bg.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: '0.14',
+          opacity: '0.18',
           mixBlendMode: 'luminosity',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)',
-          zIndex: 0
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
+          zIndex: 0,
+          animation: 'kenburns 25s ease-in-out infinite alternate',
         }}
       ></div>
 
@@ -34,13 +35,13 @@ export default function Hero() {
           </div>
           
           <h1 className="text-5xl font-extrabold leading-tight mb-6 font-heading" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: '1.15', marginBottom: '24px' }}>
-            <span className="gradient-text-sage">Arquitectura de Software.</span><br />
-            <span className="gradient-text-copper">Ciberseguridad Fuerte.</span><br />
-            <span className="text-white text-glow-sage">Ingeniería Natural.</span>
+            <span className="gradient-text-sage">Ingeniería de Software</span><br />
+            <span className="text-white text-glow-sage">de Alto Rendimiento.</span><br />
+            <span className="gradient-text-copper">Ciberseguridad Blindada.</span>
           </h1>
           
           <p className="text-lg text-muted mb-8 font-body max-w-xl" style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '32px', maxWidth: '540px' }}>
-            En Haxelera Group diseñamos y blindamos la infraestructura digital de las empresas más exigentes. Unimos el desarrollo de software a medida de alto rendimiento con perímetros de seguridad avanzados, creando ecosistemas resilientes de manera fluida.
+            En Haxelera Group diseñamos y blindamos la infraestructura digital de las empresas más exigentes. Unimos el desarrollo de software a medida con perímetros de seguridad avanzados, creando ecosistemas resilientes de manera natural y fluida.
           </p>
           
           <div className="flex flex-wrap gap-4 items-center" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>

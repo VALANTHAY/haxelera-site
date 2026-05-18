@@ -10,31 +10,45 @@ export default function WhatsAppWidget() {
       href={url} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center p-4 rounded-full group cursor-pointer transition-all duration-300 hover:scale-110 shadow-xl"
       style={{
-        background: 'hsla(140, 25%, 35%, 0.85)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid hsla(140, 40%, 60%, 0.4)',
-        boxShadow: '0 8px 32px 0 hsla(140, 30%, 20%, 0.5), 0 0 15px 0 hsla(140, 30%, 40%, 0.3)'
+        position: 'fixed',
+        bottom: '24px',
+        right: '24px',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '60px',
+        height: '60px',
+        borderRadius: '50%',
+        background: '#25D366',
+        boxShadow: '0 8px 25px rgba(37, 211, 102, 0.4), 0 4px 12px rgba(0,0,0,0.3)',
+        border: 'none',
+        textDecoration: 'none',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'scale(1.12)';
+        e.currentTarget.style.boxShadow = '0 12px 35px rgba(37, 211, 102, 0.5), 0 6px 16px rgba(0,0,0,0.4)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = '0 8px 25px rgba(37, 211, 102, 0.4), 0 4px 12px rgba(0,0,0,0.3)';
       }}
     >
-      {/* Tooltip */}
-      <div className="absolute right-full mr-4 bg-black bg-opacity-80 backdrop-blur-md px-4 py-2 rounded-lg border border-white border-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-        <p className="font-heading font-medium text-white text-sm">Chatea con nosotros</p>
-      </div>
-
       <svg 
-        viewBox="0 0 24 24" 
-        width="28" 
-        height="28" 
-        stroke="white" 
-        strokeWidth="1.5" 
-        fill="none" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className="text-white"
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 175.216 175.552"
+        width="32" 
+        height="32"
       >
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        <defs>
+          <linearGradient id="wa-grad" x1="85.915" x2="86.535" y1="32.567" y2="137.092" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#57d163"/>
+            <stop offset="1" stopColor="#23b33a"/>
+          </linearGradient>
+        </defs>
+        <path fill="#fff" d="M87.184 14.2A73.073 73.073 0 0 0 17.91 96.887c0 12.862 3.356 25.42 9.734 36.508L14.2 175.552l43.27-11.352a73.2 73.2 0 0 0 34.972 8.92h.03A73.073 73.073 0 0 0 87.184 14.2zm0 133.768h-.025a60.67 60.67 0 0 1-30.93-8.479l-2.22-1.317-22.98 6.028 6.132-22.424-1.445-2.3A60.67 60.67 0 0 1 87.184 26.6a60.76 60.76 0 0 1 0 121.37zm33.37-45.465c-1.83-.914-10.82-5.34-12.5-5.948-1.68-.614-2.9-.914-4.12.914s-4.73 5.948-5.8 7.17c-1.065 1.22-2.13.915-3.96 0-1.83-.914-7.72-2.846-14.71-9.074-5.437-4.843-9.11-10.822-10.18-12.652-1.066-1.83-.114-2.82.8-3.733.823-.82 1.83-2.137 2.745-3.204.914-1.067 1.22-1.83 1.83-3.052.61-1.22.305-2.288-.153-3.204-.457-.914-4.12-9.93-5.646-13.594-1.486-3.565-2.998-3.083-4.12-3.14-1.067-.053-2.288-.064-3.508-.064a6.718 6.718 0 0 0-4.882 2.288c-1.678 1.83-6.41 6.256-6.41 15.27 0 9.014 6.562 17.724 7.478 18.94.914 1.22 12.92 19.72 31.31 27.66 4.372 1.886 7.783 3.013 10.445 3.858 4.39 1.396 8.39 1.198 11.548.726 3.523-.525 10.82-4.424 12.35-8.7 1.525-4.276 1.525-7.937 1.066-8.7-.457-.762-1.678-1.22-3.508-2.134z"/>
       </svg>
     </a>
   );
