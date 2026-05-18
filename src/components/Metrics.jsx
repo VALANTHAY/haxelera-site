@@ -1,45 +1,82 @@
-import React from 'react';
-import { Award, ShieldAlert, Cpu, Heart, CheckCircle2, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Award, CheckCircle2, Cloud, Briefcase, ShieldCheck } from 'lucide-react';
+
+const AnimatedCounter = ({ value, suffix = '', label, sub }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = parseInt(value.replace(/,/g, ''));
+    if (isNaN(end)) return;
+
+    const duration = 2000;
+    const increment = end / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.ceil(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [value]);
+
+  return (
+    <div 
+      className="glass-card flex flex-col justify-between items-center text-center p-6"
+      style={{
+        background: 'hsla(0,0%,100%,0.02)',
+        border: '1px solid hsla(0,0%,100%,0.04)',
+        borderRadius: '16px',
+        padding: '28px',
+        minHeight: '180px'
+      }}
+    >
+      <div 
+        className="font-heading font-extrabold text-4xl tracking-tight mb-2 gradient-text-dual"
+        style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)' }}
+      >
+        {count.toLocaleString()}{suffix}
+      </div>
+      <div>
+        <div className="font-heading font-bold text-sm text-white mb-2" style={{ fontSize: '0.9rem' }}>
+          {label}
+        </div>
+        <div className="font-body text-xs text-muted" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+          {sub}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function Metrics() {
   const statCards = [
-    {
-      value: '99.98%',
-      label: 'Tasa de Disponibilidad Uptime',
-      sub: 'Monitoreo DevOps proactivo constante'
-    },
-    {
-      value: '150+',
-      label: 'Proyectos & Nubes Aseguradas',
-      sub: 'Despliegues con cero brechas'
-    },
-    {
-      value: '0',
-      label: 'Vulnerabilidades Críticas Sin Resolver',
-      sub: 'Auditorías exhaustivas y remediation rápida'
-    },
-    {
-      value: '24/7/365',
-      label: 'Operación del Centro de Seguridad',
-      sub: 'Ingenieros de guardia y respuesta activa'
-    }
+    { value: '2', suffix: ' Veces', label: 'Tech Partner del Año', sub: 'Reconocimiento regional por calidad' },
+    { value: '99', suffix: '%', label: 'Tasa de Satisfacción', sub: 'Compromiso absoluto con el cliente' },
+    { value: '1000', suffix: 'K+', label: 'Cuentas Migradas', sub: 'A infraestructuras seguras en la Nube' },
+    { value: '500', suffix: '+', label: 'Proyectos Exitosos', sub: 'Transformación digital garantizada' }
   ];
 
   const milestones = [
     {
-      year: '2021',
-      title: 'Fundación & Filosofía de Diseño Orgánico',
-      description: 'Haxelera Group nace con el firme propósito de romper con las metodologías tradicionales. Iniciamos operaciones en República Dominicana como una consultoría boutique dedicada al diseño y desarrollo de arquitecturas de software y seguridad ofensiva.'
+      year: '2015',
+      title: 'Partner Estratégico de Infraestructura',
+      description: 'Nos convertimos en un Partner estratégico permitiendo la adopción masiva de herramientas de nube y ciberseguridad, logrando despliegues locales sobre cientos de miles de asientos.'
     },
     {
-      year: '2023',
-      title: 'Lanzamiento de HaxSentinel & Expansión Regional',
-      description: 'Tras dos años de investigación y desarrollo interno, lanzamos HaxSentinel, nuestro sistema propietario de defensa perimetral con IA. Abrimos oficinas en Estados Unidos y consolidamos alianzas estratégicas para resguardar infraestructuras financieras y gubernamentales.'
+      year: '2018',
+      title: 'Dominio y Certificaciones (Gold Nivel)',
+      description: 'Nuestra competencia Gold Cloud Platform demuestra la experiencia en acelerar la adopción en la Nube, modernización de Data Centers e infraestructura híbrida. Además, alcanzamos el nivel Gold DevOps asegurando las mejores prácticas de desarrollo y Gold Data Analytics para transformar la toma de decisiones.'
     },
     {
-      year: '2025',
-      title: 'HaxFlow & Consolidación Zero-Trust Multi-Nube',
-      description: 'Introducimos HaxFlow para integrar escaneos SAST y SCA directamente en las canalizaciones de despliegue en la nube. Con más de 150 arquitecturas corporativas desplegadas en la región, inauguramos operaciones físicas en Guatemala para dar soporte directo en Centroamérica.'
+      year: 'Actualidad',
+      title: 'Expansión Global y Seguridad Zero-Trust',
+      description: 'Consolidando nuestra presencia en el mercado de Estados Unidos, República Dominicana y Guatemala, proveemos consultoría tecnológica del más alto nivel enfocados en la satisfacción total de nuestros clientes empresariales.'
     }
   ];
 
@@ -49,32 +86,7 @@ export default function Metrics() {
         {/* Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px', marginBottom: '80px' }}>
           {statCards.map((stat, idx) => (
-            <div 
-              key={idx}
-              className="glass-card flex flex-col justify-between items-center text-center p-6"
-              style={{
-                background: 'hsla(0,0%,100%,0.02)',
-                border: '1px solid hsla(0,0%,100%,0.04)',
-                borderRadius: '16px',
-                padding: '28px',
-                minHeight: '180px'
-              }}
-            >
-              <div 
-                className="font-heading font-extrabold text-3xl md:text-4xl tracking-tight mb-2 gradient-text-dual"
-                style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)' }}
-              >
-                {stat.value}
-              </div>
-              <div>
-                <div className="font-heading font-bold text-sm text-white mb-2" style={{ fontSize: '0.9rem' }}>
-                  {stat.label}
-                </div>
-                <div className="font-body text-xs text-muted" style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  {stat.sub}
-                </div>
-              </div>
-            </div>
+            <AnimatedCounter key={idx} value={stat.value} suffix={stat.suffix} label={stat.label} sub={stat.sub} />
           ))}
         </div>
 
@@ -83,18 +95,18 @@ export default function Metrics() {
           {/* Timeline Title Card */}
           <div className="md:col-span-5 flex flex-col items-start text-left" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
             <div className="section-tag">
-              NUESTRA TRAYECTORIA
+              NUESTRO HISTORIAL DE ÉXITO
             </div>
             <h3 className="section-title font-heading font-bold text-white mb-6">
-              El Camino Hacia la <span className="gradient-text-sage">Ingeniería Resiliente</span>
+              El Equipo de Especialistas en la <span className="gradient-text-sage">Nube</span>
             </h3>
             <p className="font-body text-muted leading-relaxed mb-6" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '24px' }}>
-              Desde nuestros cimientos, nos hemos rehusado a construir sistemas frágiles o a conformarnos con parches de seguridad de último minuto. Nuestra historia está definida por un crecimiento estratégico y el diseño de patentes orientadas a la soberanía tecnológica.
+              Nuestro equipo se especializa en las mejores herramientas tecnológicas disponibles, con el objetivo de ofrecer soluciones óptimas a sus necesidades. "Tu solución es nuestro compromiso."
             </p>
             <div className="flex items-center gap-3 p-4 rounded-xl border bg-white bg-opacity-5 border-opacity-5" style={{ display: 'flex', gap: '12px', background: 'hsla(0,0%,100%,0.02)', border: '1px solid hsla(0,0%,100%,0.04)', borderRadius: '12px', padding: '16px' }}>
-              <ShieldCheck className="w-8 h-8 text-primary" style={{ color: 'var(--primary)', flexShrink: 0 }} />
+              <Award className="w-8 h-8 text-copper" style={{ color: 'var(--accent)', flexShrink: 0 }} />
               <div className="font-body text-xs text-left" style={{ color: 'var(--text-main)', fontSize: '0.75rem' }}>
-                <span className="font-bold">Compromiso Inalterable:</span> Tu solución de software es nuestro compromiso absoluto de seguridad.
+                <span className="font-bold">Galardonados:</span> Hemos sido premiados por la calidad y responsabilidad que caracteriza a nuestro equipo.
               </div>
             </div>
           </div>

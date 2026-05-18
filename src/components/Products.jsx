@@ -1,16 +1,46 @@
 import React from 'react';
-import { Shield, Workflow, CheckCircle } from 'lucide-react';
+import { Shield, Workflow, Users, Image as ImageIcon, CheckCircle } from 'lucide-react';
 
 export default function Products() {
   const proprietaryProducts = [
     {
+      id: 'formesx',
+      name: 'FormeSX (HR Solutions)',
+      tagline: 'Administración Segura de Recursos Humanos',
+      description: 'FormeSX es una aplicación corporativa para la administración y el uso eficiente de las tareas del departamento de RRHH. Permite que los empleados obtengan un medio eficaz para comunicarse, solicitar acciones y obtener retroalimentación constante en un entorno cifrado y seguro.',
+      icon: Users,
+      image: '/haxflow.png', // Reusing available assets or can use a new one
+      accent: 'sage',
+      features: [
+        'Portal de auto-servicio cifrado para empleados.',
+        'Automatización de flujos de aprobación y solicitudes.',
+        'Integración con sistemas de identidad (Azure AD, Okta).',
+        'Cumplimiento estricto de privacidad y protección de datos.'
+      ]
+    },
+    {
+      id: 'mediashelter',
+      name: 'Media Shelter',
+      tagline: 'Administración Inteligente de Multimedia',
+      description: 'Plataforma de administración de activos digitales impulsada por IA. Permite identificar documentos multimedia duplicados, realizar búsquedas inteligentes mediante reconocimiento de imagen y sonido, y personalizar el motor de búsqueda entrenándolo para las necesidades específicas de su corporación.',
+      icon: ImageIcon,
+      image: '/haxsentinel.png', // Reusing available assets
+      accent: 'copper',
+      features: [
+        'Búsqueda cognitiva y clasificación automática por IA.',
+        'Detección inteligente de archivos duplicados y optimización de almacenamiento.',
+        'Análisis forense de metadatos de imagen y sonido.',
+        'Almacenamiento inmutable y encriptado en la Nube.'
+      ]
+    },
+    {
       id: 'haxsentinel',
       name: 'HaxSentinel',
       tagline: 'Perímetro Inteligente & Detección Activa con IA',
-      description: 'HaxSentinel es una plataforma avanzada de detección y respuesta ante amenazas (XDR) impulsada por IA. Escanea constantemente las redes empresariales, aísla vectores de ataque en segundos y neutraliza incidentes críticos de manera autónoma antes de que afecten la infraestructura central.',
+      description: 'HaxSentinel es una plataforma avanzada de detección y respuesta ante amenazas (XDR) impulsada por IA. Escanea constantemente las redes empresariales, aísla vectores de ataque en segundos y neutraliza incidentes críticos de manera autónoma.',
       icon: Shield,
       image: '/haxsentinel.png',
-      accent: 'copper',
+      accent: 'sage',
       features: [
         'Detección y contención de malware en tiempo real con modelos ML.',
         'Análisis predictivo de comportamiento anómalo en endpoints.',
@@ -22,15 +52,15 @@ export default function Products() {
       id: 'haxflow',
       name: 'HaxFlow',
       tagline: 'Orquestación Segura & Despliegues Multi-Nube',
-      description: 'HaxFlow es nuestro orquestador DevSecOps de alto rendimiento. Permite a los equipos de ingeniería automatizar compilaciones y despliegues (CI/CD) con escaneos de código estáticos y dinámicos incorporados en cada commit, garantizando que el software entregado cumpla con el estándar Zero-Trust.',
+      description: 'HaxFlow es nuestro orquestador DevSecOps de alto rendimiento. Permite a los equipos automatizar compilaciones y despliegues (CI/CD) con escaneos de código estáticos y dinámicos incorporados en cada commit, garantizando el estándar Zero-Trust.',
       icon: Workflow,
       image: '/haxflow.png',
-      accent: 'sage',
+      accent: 'copper',
       features: [
         'Análisis estático de seguridad (SAST) integrado y automático.',
         'Auditoría y control de dependencias rotas y vulnerables (SCA).',
         'Despliegue atómico con rollback automático ante fallas.',
-        'Compatibilidad nativa con clusters Kubernetes, Azure WebApps y AWS ECS.'
+        'Compatibilidad nativa con clusters Kubernetes, Azure y AWS.'
       ]
     }
   ];
@@ -46,11 +76,11 @@ export default function Products() {
           <div className="section-tag section-tag-copper">
             INNOVACIÓN PROPIA
           </div>
-          <h2 className="section-title font-heading font-bold text-white">
+          <h2 className="section-title font-heading font-bold text-white max-w-3xl">
             Nuestros <span className="gradient-text-dual">Productos Tecnológicos</span>
           </h2>
-          <p className="section-subtitle">
-            Además de nuestros servicios de consultoría, desarrollamos herramientas propietarias enfocadas en acelerar la transformación de su empresa de forma segura.
+          <p className="section-subtitle max-w-2xl">
+            Apoyados en nuestra experiencia de Desarrollo y Nube, hemos construido productos que atienden necesidades comunes de nuestros clientes. Estos permiten maximizar el potencial de uso de las tecnologías disponibles para acelerar la transformación digital.
           </p>
         </div>
 
@@ -83,6 +113,7 @@ export default function Products() {
                     order: isReversed ? 2 : 1,
                     overflow: 'hidden',
                   }}
+                  className="product-image-container"
                 >
                   <img 
                     src={product.image} 
@@ -125,7 +156,7 @@ export default function Products() {
                       {product.name}
                     </span>
                     <span className="font-mono" style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginLeft: '4px' }}>
-                      v2.4
+                      Enterprise
                     </span>
                   </div>
                 </div>
@@ -139,6 +170,7 @@ export default function Products() {
                     justifyContent: 'center',
                     order: isReversed ? 1 : 2,
                   }}
+                  className="product-text-container"
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
                     <span style={{ 

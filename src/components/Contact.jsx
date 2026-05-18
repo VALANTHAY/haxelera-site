@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, FileText, Clock, ShieldCheck } from 'lucide-react';
+import { Send, MapPin, Phone, Mail, ShieldCheck } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,10 +28,31 @@ export default function Contact() {
     });
   };
 
+  const locations = [
+    {
+      country: 'República Dominicana',
+      address: 'Calle Eugenio Deschamps #6, La Castellana, DN, 10133',
+      phone: '(+1) 809 518-2345',
+      email: 'ventas@haxeleragroup.com'
+    },
+    {
+      country: 'Estados Unidos',
+      address: '8333 N.W. 53rd Street Suite 450, Doral, FL 33166',
+      phone: '(+1) 954 769 0276',
+      email: 'sales@haxeleragroup.com'
+    },
+    {
+      country: 'Guatemala',
+      address: 'Diagonal 6, 10-65 Zona 10, Centro Gerencial Las Margaritas, Oficina 601',
+      phone: '(502) 4172-0060',
+      email: 'ventas@haxeleragroup.com.gt'
+    }
+  ];
+
   return (
     <section id="contacto" className="relative py-24" style={{ overflow: 'hidden' }}>
       <div className="section-container">
-        <div className="grid md:grid-cols-12 gap-12 items-center" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px' }}>
+        <div className="grid md:grid-cols-12 gap-12 items-start" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px' }}>
           
           {/* Left Side Details */}
           <div className="md:col-span-5 flex flex-col items-start text-left" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
@@ -42,45 +63,34 @@ export default function Contact() {
               Inicia la Evolución de tu <span className="gradient-text-sage">Infraestructura</span>
             </h3>
             <p className="font-body text-muted leading-relaxed mb-8" style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '32px' }}>
-              Ya sea que necesites una arquitectura de software a la medida desde cero o auditar tu perímetro de ciberseguridad actual, nuestro equipo de ingenieros élite está listo para intervenir.
+              Ya sea que necesites una arquitectura de software a la medida, migrar tus sistemas a la Nube o proteger tu perímetro digital, nuestro equipo está listo para intervenir.
             </p>
 
-            {/* Quick trust metrics */}
-            <div className="flex flex-col gap-6 w-full" style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%' }}>
-              <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-lg border bg-white bg-opacity-5 border-opacity-5 text-primary" style={{ color: 'var(--primary)', border: '1px solid hsla(0,0%,100%,0.04)', background: 'hsla(0,0%,100%,0.02)' }}>
-                  <Clock className="w-5 h-5" />
+            {/* Office Locations */}
+            <div className="flex flex-col gap-6 w-full" style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+              {locations.map((loc, idx) => (
+                <div key={idx} className="flex flex-col gap-2 p-5 rounded-xl border bg-white bg-opacity-5 border-opacity-5" style={{ border: '1px solid hsla(0,0%,100%,0.04)', background: 'hsla(0,0%,100%,0.02)' }}>
+                  <h4 className="font-heading font-bold text-base text-white mb-2" style={{ color: idx % 2 === 0 ? 'var(--primary)' : 'var(--accent)' }}>{loc.country}</h4>
+                  
+                  <div className="flex items-center gap-3 font-body text-xs text-muted" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                    <MapPin className="w-4 h-4 text-white opacity-50" />
+                    <span>{loc.address}</span>
+                  </div>
+                  <div className="flex items-center gap-3 font-body text-xs text-muted" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                    <Phone className="w-4 h-4 text-white opacity-50" />
+                    <span>{loc.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-3 font-body text-xs text-muted" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                    <Mail className="w-4 h-4 text-white opacity-50" />
+                    <span>{loc.email}</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-heading font-bold text-sm text-white mb-1">Respuesta en Menos de 24 Horas</h4>
-                  <p className="font-body text-xs text-muted" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Reciba retroalimentación rápida de un especialista asignado.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-lg border bg-white bg-opacity-5 border-opacity-5 text-accent" style={{ color: 'var(--accent)', border: '1px solid hsla(0,0%,100%,0.04)', background: 'hsla(0,0%,100%,0.02)' }}>
-                  <FileText className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-sm text-white mb-1">Acuerdo de Confidencialidad (NDA)</h4>
-                  <p className="font-body text-xs text-muted" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Protegemos tu Propiedad Intelectual e información confidencial de inmediato.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-2.5 rounded-lg border bg-white bg-opacity-5 border-opacity-5 text-primary" style={{ color: 'var(--primary)', border: '1px solid hsla(0,0%,100%,0.04)', background: 'hsla(0,0%,100%,0.02)' }}>
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-heading font-bold text-sm text-white mb-1">Garantía Secure-By-Design</h4>
-                  <p className="font-body text-xs text-muted" style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Todos nuestros entregables son auditados antes del despliegue.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
           {/* Right Side Form (Glassmorphic) */}
-          <div className="md:col-span-7 flex justify-center">
+          <div className="md:col-span-7 flex justify-center sticky top-24">
             <div className="glass-card w-full p-8" style={{ width: '100%', border: '1px solid hsla(135, 25%, 55%, 0.12)' }}>
               
               {submitted ? (
@@ -118,7 +128,7 @@ export default function Contact() {
                         value={formData.empresa}
                         onChange={handleChange}
                         required
-                        placeholder="Ej. Haxelera Tech" 
+                        placeholder="Ej. Acme Corp" 
                         className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all"
                         style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                       />
@@ -150,11 +160,11 @@ export default function Contact() {
                       className="p-3 bg-black bg-opacity-35 border border-white border-opacity-5 rounded-lg text-white font-body text-sm focus:outline-none focus:border-primary transition-all w-full"
                       style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid hsla(0,0%,100%,0.06)', borderRadius: '8px', color: 'white' }}
                     >
-                      <option value="software" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Desarrollo de Software a Medida</option>
+                      <option value="software" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Desarrollo de Software</option>
+                      <option value="cloud" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Nube & Servicios TI</option>
+                      <option value="data" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Data & AI</option>
                       <option value="cybersecurity" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Ciberseguridad & Pentesting</option>
-                      <option value="devops" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Arquitectura Cloud / DevSecOps</option>
-                      <option value="product" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Demo de Producto (Sentinel / Flow)</option>
-                      <option value="audit" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Auditoría & Cumplimiento TI</option>
+                      <option value="product" style={{ backgroundColor: 'var(--bg-color)', color: 'white' }}>Demo de Producto (FormeSX / Sentinel)</option>
                     </select>
                   </div>
 
@@ -175,7 +185,7 @@ export default function Contact() {
 
                   {/* Submission Button */}
                   <button type="submit" className="btn-primary w-full justify-center mt-2" style={{ display: 'flex', justifyContent: 'center' }}>
-                    Enviar Conexión Segura
+                    Enviar Solicitud
                     <Send className="w-4 h-4" />
                   </button>
                 </form>
