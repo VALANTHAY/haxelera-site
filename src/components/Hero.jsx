@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, ShieldCheck, Terminal, Network, Activity } from 'lucide-react';
 import MatrixPoemWidget from './MatrixPoemWidget';
+import SatelliteNetwork from './SatelliteNetwork';
 
 export default function Hero() {
   return (
@@ -26,6 +27,8 @@ export default function Hero() {
       {/* Background ambient lighting */}
       <div className="ambient-light ambient-light-sage"></div>
       <div className="ambient-light ambient-light-copper"></div>
+
+      <SatelliteNetwork />
 
       <div className="section-container grid md:grid-cols-2 gap-12 items-center" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', width: '100%' }}>
         {/* Left Side Copy */}

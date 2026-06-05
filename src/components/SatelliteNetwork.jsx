@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Brain } from 'lucide-react';
 
 export default function SatelliteNetwork() {
-  const [dimensions, setDimensions] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 1200,
-    height: typeof document !== 'undefined' && document.documentElement ? document.documentElement.scrollHeight : 800
-  });
-
   const [ping, setPing] = useState(14);
 
   // Fluctuating Ping (Active Latency Sim)
@@ -23,48 +18,8 @@ export default function SatelliteNetwork() {
     return () => clearInterval(interval);
   }, []);
 
-  // Capture total page height and window width in real-time
-  useEffect(() => {
-    const updateDimensions = () => {
-      const newWidth = window.innerWidth;
-      const newHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        window.innerHeight
-      );
-      
-      setDimensions(prev => {
-        // Speed Optimization: Skip state updates if the dimension change is negligible
-        if (Math.abs(prev.width - newWidth) < 10 && Math.abs(prev.height - newHeight) < 15) {
-          return prev;
-        }
-        return { width: newWidth, height: newHeight };
-      });
-    };
-
-    // Initial run
-    updateDimensions();
-
-    // Use ResizeObserver on document.body to watch for any changes in page content height
-    let resizeObserver;
-    if (typeof ResizeObserver !== 'undefined' && document.body) {
-      resizeObserver = new ResizeObserver(() => {
-        updateDimensions();
-      });
-      resizeObserver.observe(document.body);
-    }
-
-    window.addEventListener('resize', updateDimensions);
-    return () => {
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-      window.removeEventListener('resize', updateDimensions);
-    };
-  }, []);
-
-  const w = dimensions.width;
-  const h = dimensions.height;
+  const w = 1200;
+  const h = 800;
   const startX = w - 80;
   const startY = 140;
 
@@ -110,45 +65,37 @@ export default function SatelliteNetwork() {
 
   return (
     <div className="satellite-network-wrapper-absolute">
-      {/* 
-        The SVG container spans the entire scrollable height of the document.
-        Its dimensions update dynamically, allowing curves to stretch to the end of the page.
-      */}
       <svg 
         className="fiber-cables-svg-absolute" 
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{
           width: '100%',
-          height: `${h}px`,
+          height: '100%',
           position: 'absolute',
           top: 0,
           left: 0,
           pointerEvents: 'none'
         }}
       >
-        {/* Optimized: Heavy SVG blur filters removed for extreme performance boost */}
+        {/* Cable 1: Left sweep */}
+        <g>
+          <path className="fiber-base" d={getPath1()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-0" d={getPath1()} fill="none" stroke="var(--primary)" strokeWidth="2" />
+        </g>
 
-        {h > 150 && (
-          <>
-            {/* Cable 1: Left sweep */}
-            <g>
-              <path className="fiber-base" d={getPath1()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-0" d={getPath1()} fill="none" stroke="var(--primary)" strokeWidth="2" />
-            </g>
+        {/* Cable 2: Right sweep */}
+        <g>
+          <path className="fiber-base" d={getPath2()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-1" d={getPath2()} fill="none" stroke="var(--primary)" strokeWidth="2" />
+        </g>
 
-            {/* Cable 2: Right sweep */}
-            <g>
-              <path className="fiber-base" d={getPath2()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-1" d={getPath2()} fill="none" stroke="var(--primary)" strokeWidth="2" />
-            </g>
-
-            {/* Cable 3: Center wave */}
-            <g>
-              <path className="fiber-base" d={getPath3()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
-              <path className="fiber-data fiber-anim-2" d={getPath3()} fill="none" stroke="var(--primary)" strokeWidth="2" />
-            </g>
-          </>
-        )}
+        {/* Cable 3: Center wave */}
+        <g>
+          <path className="fiber-base" d={getPath3()} fill="none" stroke="hsla(135, 25%, 55%, 0.12)" strokeWidth="1.5" />
+          <path className="fiber-data fiber-anim-2" d={getPath3()} fill="none" stroke="var(--primary)" strokeWidth="2" />
+        </g>
       </svg>
 
       {/* Brain Antenna Module with Latency HUD */}

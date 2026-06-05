@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import Preloader from './components/Preloader';
-import SatelliteNetwork from './components/SatelliteNetwork';
 
 // Pages
 const Home = React.lazy(() => import('./pages/Home'));
@@ -40,7 +39,6 @@ export default function App() {
         }}
       >
         <div className="grid-overlay"></div>
-        <SatelliteNetwork />
         <WhatsAppWidget />
         <Navbar />
 
@@ -92,7 +90,6 @@ function MainShell() {
         }}
       >
         <div className="grid-overlay"></div>
-        <SatelliteNetwork />
         <WhatsAppWidget />
         <Navbar />
 
