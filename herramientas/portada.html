@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Generador de la imagen para compartir (assets/og.jpg). No se publica: Amplify solo sirve el sitio.
+       Uso: node herramientas/portada.mjs (abre esta página en Chrome sin ventana y guarda la captura). -->
+  <base href="/">
+  <title>Portada para compartir · Haxelera Group</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;500;600&display=swap">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+  <style>
+    :root { --iris: linear-gradient(100deg, #ffffff 0%, #dccbff 30%, #a9efff 62%, #ffd2b0 100%); }
+    html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #000; color: #fff; }
+    #mundo { position: fixed; left: 0; top: 0; width: 1200px; height: 630px; display: block; }
+    .capa { position: fixed; inset: 0; pointer-events: none; }
+    /* Luz que sale del portal de la A: resplandor iridiscente y haces, sumados a la escena (screen). */
+    .resplandor { mix-blend-mode: screen; background:
+      radial-gradient(260px 220px at var(--px) var(--py), rgba(220, 203, 255, .5), rgba(169, 239, 255, .18) 45%, transparent 72%),
+      radial-gradient(520px 420px at var(--px) var(--py), rgba(124, 90, 255, .28), rgba(0, 120, 160, .12) 50%, transparent 75%),
+      radial-gradient(380px 300px at calc(var(--px) + 160px) calc(var(--py) + 150px), rgba(255, 154, 213, .16), transparent 70%); }
+    .haces { mix-blend-mode: screen; opacity: .5;
+      background: repeating-conic-gradient(from 8deg at var(--px) var(--py), rgba(255, 255, 255, .22) 0deg 1.2deg, transparent 1.2deg 13deg);
+      -webkit-mask: radial-gradient(420px 340px at var(--px) var(--py), #000 8%, transparent 70%); mask: radial-gradient(420px 340px at var(--px) var(--py), #000 8%, transparent 70%); }
+    /* Velo a la derecha para que el texto se lea sobre cualquier reflejo. */
+    .velo { background: linear-gradient(90deg, rgba(0, 0, 0, 0) 36%, rgba(0, 0, 0, .55) 56%, rgba(0, 0, 0, .78) 100%); }
+    /* Triángulos de las nueve dimensiones, detrás del texto, como portales lejanos. */
+    .eco { left: 640px; top: 0; width: 560px; height: 630px; }
+    .eco svg { position: absolute; overflow: visible; }
+    .eco polygon { fill: none; stroke: var(--c); stroke-width: 1.6; filter: drop-shadow(0 0 6px var(--c)) drop-shadow(0 0 16px var(--c)); }
+    .texto { left: 640px; right: 64px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+    .ojo { margin: 0 0 22px; font: 500 17px/1 "JetBrains Mono", monospace; letter-spacing: .24em; text-transform: uppercase; color: #b9b9c4; }
+    .ojo b { color: #fff; font-weight: 500; }
+    h1 { margin: 0; font: 500 74px/.98 "Unbounded", sans-serif; letter-spacing: -.045em; }
+    h1 span { display: block; }
+    h1 .iris { background: var(--iris); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
+    .linea { margin: 26px 0 0; font: 500 23px/1.35 "Manrope", sans-serif; color: #d6d6e0; letter-spacing: -.005em; }
+    .pie { position: fixed; left: 640px; right: 64px; bottom: 50px; display: flex; align-items: center; gap: 16px; font: 500 14px/1 "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: #9a9aa8; white-space: nowrap; }
+    .tris { display: flex; gap: 7px; }
+    .tris i { width: 15px; height: 13px; clip-path: polygon(50% 0, 100% 100%, 0 100%); background: var(--c); }
+    .pie .web { margin-left: auto; color: #fff; }
+  </style>
+</head>
+<body>
+  <canvas id="mundo"></canvas>
+  <div class="capa haces" aria-hidden="true"></div>
+  <div class="capa resplandor" aria-hidden="true"></div>
+  <div class="capa eco" aria-hidden="true"></div>
+  <div class="capa velo"></div>
+  <div class="capa texto">
+    <p class="ojo"><b>Haxelera Group</b> · SRL</p>
+    <h1><span>Tecnología</span><span>de otra</span><span class="iris">dimensión.</span></h1>
+    <p class="linea">Software, IA, nube, datos y ciberseguridad.</p>
+  </div>
+  <div class="pie"><span class="tris"></span><span>9 empresas</span><span class="web">haxeleragroup.com</span></div>
+
+  <script type="module">
+    import { Mundo } from './js/escena.js';
+    import { EMPRESAS } from './js/empresas.js';
+
+    // Parámetros para afinar la toma: ?z=…&x=…&px=…&py=…&t=…
+    const q = new URLSearchParams(location.search);
+    const num = (k, d) => (q.has(k) ? Number(q.get(k)) : d);
+
+    document.querySelector('.tris').innerHTML = EMPRESAS.map(e => `<i style="--c:${e.colores[0]}"></i>`).join('');
+    // Portales lejanos: un triángulo por empresa, con su color, a distintas distancias.
+    // [x, y, tamaño, opacidad]
+    const sitios = [[330, 46, 64, .55], [478, 132, 40, .7], [36, 470, 46, .45], [470, 470, 30, .6], [520, 300, 22, .75], [60, 58, 30, .5], [250, 540, 20, .6], [410, 26, 18, .7], [-10, 300, 16, .5]];
+    document.querySelector('.eco').innerHTML = EMPRESAS.map((e, k) => {
+      const [x, y, t, o] = sitios[k];
+      const h = t * 0.866;
+      return `<svg style="left:${x}px;top:${y}px;opacity:${o};--c:${e.colores[0]}" width="${t}" height="${h}" viewBox="0 0 ${t} ${h}"><polygon points="${t / 2},0 ${t},${h} 0,${h}"/></svg>`;
+    }).join('');
+
+    const proyectos = Array.from({ length: 6 }, (_, i) => ({ titulo: `Proyecto ${i + 1}`, texto: '', tec: '' }));
+    const mundo = new Mundo(document.getElementById('mundo'), { nivel: 'alta', reducido: false, proyectos });
+    await mundo.preparar(() => {});
+    await document.fonts.ready;
+    mundo.redimensionar();
+    // distribuir() deja el logo al centro: se corre a la izquierda para dejar el texto a la derecha.
+    mundo.heroOffX = num('x', -3.3);
+    mundo.heroOffY = num('y', 0.15);
+    mundo.entrar();
+    mundo.renderer.toneMappingExposure = num('exp', 1.2);
+    mundo.escena.environmentIntensity = num('env', 1.5);
+    const z = num('z', mundo.zHero - 1.5);
+    mundo.zObjetivo = mundo.camZ = z;
+    mundo.puntero.set(num('px', 0.32), num('py', -0.12));
+    mundo.punteroSuave.copy(mundo.puntero);
+    // Se avanza el tiempo a mano: el logo termina de aparecer y la luz queda en su punto.
+    const pasos = num('t', 3.4) / 0.05;
+    // El hilo de energía del portal, encendido como al cruzarlo.
+    const ignicion = num('ig', 1.7);
+    const toma = (dt) => { mundo.zObjetivo = z; mundo.cuadro(dt); mundo.uIgnicion.value = ignicion; mundo.renderizar(); };
+    for (let i = 0; i < pasos; i++) toma(0.05);
+    // El resplandor se centra en el portal de la A, proyectado a la pantalla.
+    const v = mundo.logo.localToWorld(mundo.logo.worldToLocal(new mundo.camara.position.constructor(0, 0, 0)));
+    v.project(mundo.camara);
+    document.body.style.setProperty('--px', `${((v.x * 0.5 + 0.5) * 1200).toFixed(0)}px`);
+    document.body.style.setProperty('--py', `${((-v.y * 0.5 + 0.5) * 630).toFixed(0)}px`);
+    window.portadaLista = true;
+    if (q.has('vivo')) {
+      let ultimo = performance.now();
+      const bucle = (ahora) => { toma(Math.min((ahora - ultimo) / 1000, 0.05)); ultimo = ahora; requestAnimationFrame(bucle); };
+      requestAnimationFrame(bucle);
+    }
+  </script>
+</body>
+</html>
