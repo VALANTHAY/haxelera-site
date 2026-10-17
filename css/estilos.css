@@ -606,8 +606,8 @@ body.pf-abierto .eco-fijo, body.pf-abierto .nav, body.pf-abierto .riel, body.pf-
   .eco-area { font-size: 10px; }
   .eco-entrar { height: 42px; font-size: 13px; }
   /* A la izquierda, para no chocar con el botón de Alyxia. */
-  .eco-lista { margin: 0; justify-content: flex-start; }
-  .eco-ir { width: 31px; }
+  .eco-lista { margin: 0; justify-content: flex-start; gap: 1px; max-width: calc(100% - 64px); }
+  .eco-ir { width: 28px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .eco-nombre, .pf-nombre { animation: none; }
