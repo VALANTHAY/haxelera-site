@@ -35,7 +35,7 @@ El sitio está en vivo en **haxeleragroup.com** desde el 17 oct 2026.
 - `amplify.yml` copia solo `index.html`, `css`, `js` y `assets` (el servidor y esta documentación no se sirven).
 - `customHttp.yml` pone la CSP y las cabeceras de seguridad. Si cambian los scripts en línea del `index.html`, vuelve a generarlo con `node servidor/cabeceras-amplify.mjs` antes de subir.
 - El sitio anterior (React) quedó en la etiqueta `sitio-react-2026-06` del repositorio, por si hay que volver.
-- Esta carpeta no está en git: para publicar, se copia su contenido sobre un clon del repositorio y se hace commit y push.
+- Esta carpeta es el repositorio (conectada a `origin`, rama `main`): para publicar, `git add`, `git commit` y `git push` desde aquí.
 
 Pendiente:
 
