@@ -27,13 +27,21 @@ Parámetros útiles:
 - `?calidad=alta|media|baja` fuerza un nivel de calidad. Sin el parámetro, el sitio lo detecta solo.
 - `?depurar` entra directo y expone en la consola `haxelera.ir('seguridad')`, `haxelera.irDim(3)`, `haxelera.abrirPerfil(3)`, `haxelera.irCaso(2)`, `haxelera.abrirTrabajo(3, 0)` y `haxelera.abrirExperiencia(4)` para saltar. Es solo para pruebas.
 
-## Antes de publicar
+## Publicar
 
-1. Escribe el correo y el WhatsApp en `js/config.js`. Mientras estén vacíos, los botones de contacto muestran un aviso.
-2. Revisa los textos de servicios y proyectos en `index.html`, porque hablan por la empresa.
-3. Publícalo y apunta el dominio. No hace falta compilar nada. Hay dos formas:
-   - **Solo estático** (Amplify, Netlify, Cloudflare Pages o S3 + CloudFront): todo funciona; las experiencias en vivo quedan en modo sin conexión.
-   - **Con el servidor** (`servidor/servidor.mjs` en cualquier servicio que corra Node, detrás de HTTPS): votos compartidos en tiempo real, estado del servidor y Alyxia con IA.
+El sitio está en vivo en **haxeleragroup.com** desde el 17 oct 2026.
+
+- Lo sirve la app de Amplify **haxelera-site** (región us-east-2), conectada al repositorio de GitHub `VALANTHAY/haxelera-site`, rama `main`. Cada `git push` a `main` se publica solo en uno o dos minutos.
+- `amplify.yml` copia solo `index.html`, `css`, `js` y `assets` (el servidor y esta documentación no se sirven).
+- `customHttp.yml` pone la CSP y las cabeceras de seguridad. Si cambian los scripts en línea del `index.html`, vuelve a generarlo con `node servidor/cabeceras-amplify.mjs` antes de subir.
+- El sitio anterior (React) quedó en la etiqueta `sitio-react-2026-06` del repositorio, por si hay que volver.
+- Esta carpeta no está en git: para publicar, se copia su contenido sobre un clon del repositorio y se hace commit y push.
+
+Pendiente:
+
+1. Escribir el correo y el WhatsApp en `js/config.js`. Mientras estén vacíos, los botones de contacto muestran un aviso.
+2. Revisar los textos de servicios, proyectos, empresas y pilares, porque hablan por la empresa.
+3. Para Alyxia con IA real y los votos compartidos de la encuesta, montar `servidor/servidor.mjs` aparte (por ejemplo, en una función o un contenedor) y poner su dirección en `CONFIG.api`.
 
 ## El recorrido
 
