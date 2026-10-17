@@ -1,21 +1,337 @@
 <!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haxelera Group | Software de Alto Rendimiento & Ciberseguridad</title>
-    <meta name="description" content="Haxelera Group es una firma líder en ingeniería de software secure-by-design y ciberseguridad corporativa. Desarrollo a medida, DevOps, SOC 24/7 y Zero-Trust." />
-    
-    <!-- Speed Optimization: Preconnect to Google Font CDNs to resolve DNS early -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <!-- Combined High-Performance Font Loading to eliminate block chain -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="es" class="sin-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Haxelera Group — Software, aplicaciones, web y ciberseguridad</title>
+  <meta name="description" content="Haxelera Group SRL diseña y programa software a medida, aplicaciones móviles, plataformas web de alto rendimiento y soluciones de ciberseguridad.">
+  <link rel="canonical" href="https://haxeleragroup.com/">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_DO">
+  <meta property="og:site_name" content="Haxelera Group">
+  <meta property="og:url" content="https://haxeleragroup.com/">
+  <meta property="og:title" content="Haxelera Group — Tecnología de otra dimensión">
+  <meta property="og:description" content="Software a medida, aplicaciones móviles, web de alto rendimiento y ciberseguridad.">
+  <meta property="og:image" content="https://haxeleragroup.com/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" crossorigin>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Haxelera Group SRL",
+      "alternateName": "Haxelera",
+      "url": "https://haxeleragroup.com/",
+      "logo": "https://haxeleragroup.com/assets/logo-haxelera.svg",
+      "description": "Desarrollo de software a medida, aplicaciones móviles, plataformas web y ciberseguridad.",
+      "knowsAbout": ["Desarrollo de software", "Aplicaciones móviles", "Desarrollo web", "Ciberseguridad", "Cloud y DevOps", "Datos e inteligencia artificial"]
+    }
+  </script>
+  <script>document.documentElement.classList.replace('sin-js', 'con-js');</script>
+</head>
+<body class="cargando">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <canvas id="mundo" aria-hidden="true"></canvas>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="destello" aria-hidden="true"></div>
+
+  <!-- Arranque: muestra lo que de verdad se está cargando -->
+  <div id="cargador" role="status" aria-live="polite">
+    <div class="cg-caja">
+      <div class="cg-logo" aria-hidden="true">
+        <img class="cg-logo-base" src="assets/logo-haxelera.svg" alt="" width="764" height="702">
+        <img class="cg-logo-lleno" src="assets/logo-haxelera.svg" alt="" width="764" height="702">
+        <i class="cg-logo-scan"></i>
+      </div>
+      <ol class="cg-log" aria-label="Arranque del sistema"></ol>
+      <div class="cg-pie">
+        <div class="cg-barra"><i></i></div>
+        <span class="cg-pct" aria-hidden="true">000</span>
+      </div>
+      <div class="cg-entrar" hidden>
+        <button class="boton boton-claro" type="button" data-sonido="1">Entrar con sonido</button>
+        <button class="boton boton-fantasma" type="button" data-sonido="0">Entrar sin sonido</button>
+        <p class="cg-nota mono">Mejor con audífonos</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true"><i></i></div>
+  <div class="aviso" role="status" aria-live="polite"></div>
+
+  <header class="nav">
+    <a class="nav-marca" href="#inicio" aria-label="Haxelera Group, ir al inicio">
+      <img src="assets/marca.svg" alt="" width="30" height="28">
+      <span>HAXELERA</span>
+    </a>
+    <nav class="nav-enlaces" aria-label="Principal">
+      <a href="#ecosistema">Ecosistema</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="nav-sonido" type="button" aria-pressed="false" aria-label="Activar sonido">
+      <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="mono nav-sonido-txt">Sonido</span>
+    </button>
+    <a class="boton boton-claro nav-cta magnetico" href="#contacto">Iniciar proyecto</a>
+    <button class="nav-menu" type="button" aria-expanded="false" aria-controls="menu-movil">
+      <span></span><span></span><b class="sr">Menú</b>
+    </button>
+  </header>
+
+  <div class="reproductor" aria-label="Música generativa">
+    <button type="button" class="rp-ant" aria-label="Pista anterior">&lt;&lt;</button>
+    <div class="rp-ventana"><span class="rp-pista mono">01 · Umbral — Haxelera</span></div>
+    <button type="button" class="rp-sig" aria-label="Pista siguiente">&gt;&gt;</button>
+  </div>
+
+  <div class="caso-vista" hidden role="dialog" aria-modal="true" aria-labelledby="cv-titulo">
+    <div class="cv-fondo"></div>
+    <p class="cv-pista mono">Desliza o pulsa Esc para cerrar</p>
+    <div class="cv-info mono">
+      <p class="cv-meta"></p>
+      <h3 id="cv-titulo" class="cv-titulo"></h3>
+      <p class="cv-texto"></p>
+      <p class="cv-tec"></p>
+      <button type="button" class="cv-cerrar mono">&lt;- Cerrar</button>
+    </div>
+  </div>
+
+  <div id="menu-movil" class="menu-movil" hidden>
+    <nav aria-label="Menú">
+      <a href="#ecosistema">Ecosistema</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+
+  <div class="hud mono" aria-hidden="true">
+    <span data-hud="z">Z +00.00</span>
+    <span data-hud="v">V 00.0</span>
+    <span data-hud="s">01 / 12</span>
+  </div>
+  <nav class="riel" aria-label="Recorrido"><ol></ol></nav>
+
+  <main id="contenido">
+
+    <section id="inicio" class="sec sec-inicio" aria-label="Haxelera Group">
+      <img class="respaldo-logo" src="assets/logo-haxelera.svg" alt="Haxelera Group SRL" width="764" height="702">
+    </section>
+
+    <!-- Al cruzar el triángulo del logo aparece el mensaje, letra por letra -->
+    <section id="portal" class="sec sec-portal" aria-labelledby="t-inicio">
+      <div class="portal-texto">
+        <p class="ojo mono pt-ojo"><span class="punto"></span>Haxelera Group SRL · Ingeniería digital</p>
+        <h1 id="t-inicio" class="h-gigante pt-titulo" aria-label="Tecnología de otra dimensión.">
+          <span class="pt-linea" aria-hidden="true">Tecnología</span>
+          <span class="pt-linea" aria-hidden="true">de otra</span>
+          <span class="pt-linea pt-iris" aria-hidden="true">dimensión.</span>
+        </h1>
+        <p class="texto texto-grande pt-texto">Programamos software a medida, aplicaciones móviles, plataformas web y ciberseguridad para empresas que quieren ir más rápido que su mercado.</p>
+        <div class="acciones pt-acciones">
+          <a class="boton boton-claro magnetico" href="#contacto">Iniciar proyecto</a>
+          <a class="boton boton-fantasma" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="nosotros" class="sec sec-nosotros" aria-labelledby="t-nosotros">
+      <div class="nosotros" data-revelar>
+        <p class="ojo mono r" data-revolver>Quiénes somos</p>
+        <h2 id="t-nosotros" class="h-grande r">Somos Haxelera Group.</h2>
+        <p class="texto texto-grande r">Un equipo de ingeniería que convierte ideas complejas en productos rápidos, bellos y blindados. Del primer boceto al último servidor.</p>
+        <ul class="principios">
+          <li class="r"><span class="mono">01</span><h3>Velocidad</h3><p>Haxelera viene de acelerar: entregas cortas y avances que puedes ver cada semana.</p></li>
+          <li class="r"><span class="mono">02</span><h3>Precisión</h3><p>Arquitectura limpia, pruebas automáticas y cero improvisación.</p></li>
+          <li class="r"><span class="mono">03</span><h3>Seguridad por diseño</h3><p>La protección se construye desde la primera línea, no se agrega al final.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="ecosistema" class="sec-ecosistema" aria-labelledby="t-ecosistema">
+      <div class="eco-fijo">
+        <div class="eco-cab">
+          <p class="ojo mono" data-revolver>Ecosistema Haxelera</p>
+          <h2 id="t-ecosistema" class="mono eco-sub">Un grupo · nueve dimensiones</h2>
+        </div>
+        <div class="eco-escena" aria-live="polite">
+          <button type="button" class="eco-portal" aria-label="Entrar a Nexora"></button>
+          <div class="eco-centro">
+            <p class="mono eco-num"><span>01</span> / 09 <i class="glifos" aria-hidden="true">[=◇⌃◇=]</i></p>
+            <p class="eco-nombre">Nexora</p>
+            <p class="mono eco-area">Inteligencia artificial y tecnologías de nueva generación</p>
+          </div>
+          <button type="button" class="boton boton-claro eco-entrar"><i aria-hidden="true"></i><span>Entrar a Nexora</span> -&gt;</button>
+        </div>
+        <ol class="eco-lista mono" aria-label="Empresas del grupo">
+            <li><button type="button" class="eco-ir" data-dim="0"><i aria-hidden="true"></i><span>Nexora</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="1"><i aria-hidden="true"></i><span>Haxora</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="2"><i aria-hidden="true"></i><span>Xelera Cloud</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="3"><i aria-hidden="true"></i><span>Haxion</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="4"><i aria-hidden="true"></i><span>Nexel Data</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="5"><i aria-hidden="true"></i><span>Haxelera Labs</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="6"><i aria-hidden="true"></i><span>Xeloris</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="7"><i aria-hidden="true"></i><span>Haxelera Capital</span></button></li>
+            <li><button type="button" class="eco-ir" data-dim="8"><i aria-hidden="true"></i><span>Nexora Global</span></button></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="equipo" class="sec sec-equipo" aria-labelledby="t-equipo">
+      <div class="equipo tarjeta-centro" data-revelar>
+        <p class="ojo mono r" data-revolver>Nuestro equipo</p>
+        <h2 id="t-equipo" class="h-media r">Código y seguridad, en vivo.</h2>
+        <p class="texto r">De un lado se programa; del otro se vigila cada sistema. Así trabajamos cada proyecto: construir rápido y proteger siempre.</p>
+        <ul class="equipo-roles r"><li>Desarrollo</li><li>Diseño</li><li>Ciberseguridad</li><li>Infraestructura</li></ul>
+      </div>
+    </section>
+
+    <div id="servicios">
+      <section id="software" class="sec estacion" data-lado="izq" aria-labelledby="t-software">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>01</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-software" class="h-media r" data-revolver>Software a medida</h2>
+          <p class="texto r">Sistemas que se adaptan a tu operación, no al revés. Plataformas de gestión, CRM y ERP, integraciones y APIs que crecen contigo.</p>
+          <ul class="etiquetas r"><li>Arquitectura</li><li>APIs</li><li>Integraciones</li><li>Automatización</li></ul>
+        </article>
+      </section>
+
+      <section id="apps" class="sec estacion" data-lado="der" aria-labelledby="t-apps">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>02</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-apps" class="h-media r" data-revolver>Aplicaciones móviles</h2>
+          <p class="texto r">Apps para iOS y Android que se sienten nativas: rápidas, fluidas y capaces de trabajar sin conexión.</p>
+          <ul class="etiquetas r"><li>iOS</li><li>Android</li><li>SwiftUI</li><li>React Native</li></ul>
+        </article>
+      </section>
+
+      <section id="web" class="sec estacion" data-lado="izq" aria-labelledby="t-web">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>03</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-web" class="h-media r" data-revolver>Desarrollo web</h2>
+          <p class="texto r">Sitios y plataformas de alto rendimiento: experiencias 3D, comercio electrónico y paneles en tiempo real. Como el que estás recorriendo.</p>
+          <ul class="etiquetas r"><li>Web apps</li><li>WebGL y 3D</li><li>E-commerce</li><li>SEO técnico</li></ul>
+        </article>
+      </section>
+
+      <section id="seguridad" class="sec estacion" data-lado="der" aria-labelledby="t-seguridad">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>04</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-seguridad" class="h-media r" data-revolver>Ciberseguridad</h2>
+          <p class="texto r">Protegemos tu negocio antes de que llegue el ataque: auditorías, pruebas de intrusión autorizadas, endurecimiento de servidores y monitoreo.</p>
+          <ul class="etiquetas r"><li>Auditoría</li><li>Pentesting</li><li>Hardening</li><li>Monitoreo</li></ul>
+        </article>
+      </section>
+
+      <section id="cloud" class="sec estacion" data-lado="izq" aria-labelledby="t-cloud">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>05</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-cloud" class="h-media r" data-revolver>Cloud y DevOps</h2>
+          <p class="texto r">Infraestructura en la nube, despliegue continuo y respaldos automáticos. Tu sistema siempre arriba y siempre rápido.</p>
+          <ul class="etiquetas r"><li>AWS</li><li>CI/CD</li><li>Contenedores</li><li>Respaldos</li></ul>
+        </article>
+      </section>
+
+      <section id="ia" class="sec estacion" data-lado="der" aria-labelledby="t-ia">
+        <article class="tarjeta" data-revelar>
+          <p class="ojo mono r"><b>06</b>&nbsp;/ 06 · Servicio</p>
+          <h2 id="t-ia" class="h-media r" data-revolver>Datos e inteligencia artificial</h2>
+          <p class="texto r">Convertimos datos en decisiones: tableros en vivo, analítica avanzada y automatización con inteligencia artificial.</p>
+          <ul class="etiquetas r"><li>Analítica</li><li>Tableros</li><li>Machine learning</li><li>Agentes de IA</li></ul>
+        </article>
+      </section>
+    </div>
+
+    <section id="proceso" class="sec-proceso" aria-labelledby="t-proceso">
+      <div class="proceso-fijo">
+        <div class="proceso-cab" data-revelar>
+          <p class="ojo mono r" data-revolver>Cómo trabajamos</p>
+          <h2 id="t-proceso" class="h-grande r">Cinco puertas.<br>Un solo flujo.</h2>
+        </div>
+        <div>
+          <ol class="pasos">
+            <li class="activo"><span class="mono">01</span><h3>Descubrir</h3><p>Entendemos tu negocio, a tus usuarios y el problema real.</p></li>
+            <li><span class="mono">02</span><h3>Diseñar</h3><p>Arquitectura, experiencia e interfaz antes de escribir código.</p></li>
+            <li><span class="mono">03</span><h3>Construir</h3><p>Entregas semanales que puedes probar desde el primer sprint.</p></li>
+            <li><span class="mono">04</span><h3>Blindar</h3><p>Pruebas, auditoría de seguridad y rendimiento al límite.</p></li>
+            <li><span class="mono">05</span><h3>Lanzar y escalar</h3><p>Despliegue, monitoreo y mejora continua después del lanzamiento.</p></li>
+          </ol>
+          <div class="proceso-barra"><i></i></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="sec sec-proyectos" aria-labelledby="t-proyectos">
+      <div class="proyectos-fijo">
+        <div class="proyectos" data-revelar>
+          <div class="proyectos-cab">
+            <p class="ojo mono r" data-revolver>Lo que construimos</p>
+            <h2 id="t-proyectos" class="h-grande r">Hecho para<br>el mundo real.</h2>
+          </div>
+          <div class="proyectos-pie">
+            <div class="rejilla">
+              <p class="mono rejilla-pregunta r">¿Qué estás buscando?</p>
+            <article class="caso r" data-caso="0"><span class="mono num">01</span><h3><button type="button" class="caso-ir">Plataformas de gestión</button></h3><p>CRM, ERP y paneles administrativos en tiempo real, con roles, permisos y auditoría.</p><span class="mono tec">macOS · Web · Tiempo real</span></article>
+            <article class="caso r" data-caso="1"><span class="mono num">02</span><h3><button type="button" class="caso-ir">Apps de campo</button></h3><p>Captura de datos sin conexión, GPS, fotos y escaneo de documentos con IA.</p><span class="mono tec">iOS · Android · Offline</span></article>
+            <article class="caso r" data-caso="2"><span class="mono num">03</span><h3><button type="button" class="caso-ir">Analítica y encuestas</button></h3><p>Modelos estadísticos, ponderación y tableros que convierten datos en decisiones.</p><span class="mono tec">Estadística · Tableros</span></article>
+            <article class="caso r" data-caso="3"><span class="mono num">04</span><h3><button type="button" class="caso-ir">Experiencias web 3D</button></h3><p>Sitios inmersivos como este, rápidos en el celular y listos para buscadores.</p><span class="mono tec">WebGL · SEO</span></article>
+            <article class="caso r" data-caso="4"><span class="mono num">05</span><h3><button type="button" class="caso-ir">Nube y respaldos</button></h3><p>Infraestructura en la nube, respaldos diarios automáticos y monitoreo continuo.</p><span class="mono tec">AWS · DevOps</span></article>
+            <article class="caso r" data-caso="5"><span class="mono num">06</span><h3><button type="button" class="caso-ir">Automatización con IA</button></h3><p>Agentes de voz, llamadas automáticas y flujos que trabajan sin descanso.</p><span class="mono tec">IA · Voz · Integraciones</span></article>
+            </div>
+            <div class="carrusel-detalle r" aria-live="polite">
+              <p class="mono cd-num"><span>01</span> / 06 <i class="cd-glifo" aria-hidden="true">[=◇⌃◇=]</i></p>
+              <p class="cd-titulo"></p>
+              <p class="cd-texto"></p>
+              <p class="mono cd-tec"></p>
+              <button type="button" class="mono cd-abrir">-&gt; Ver proyecto</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="sec sec-contacto" aria-labelledby="t-contacto">
+      <div class="contacto" data-revelar>
+        <p class="ojo mono r" data-revolver>Siguiente dimensión</p>
+        <h2 id="t-contacto" class="h-gigante r">¿Cruzamos<br>juntos?</h2>
+        <p class="texto texto-grande r">Cuéntanos tu idea y te respondemos con un plan claro, tiempos y presupuesto.</p>
+        <div class="acciones r">
+          <a class="boton boton-claro boton-grande magnetico" href="#contacto" data-contacto="correo">Escríbenos</a>
+          <a class="boton boton-fantasma boton-grande" href="#contacto" data-contacto="whatsapp">WhatsApp</a>
+        </div>
+      </div>
+      <footer class="pie">
+        <span>© <span data-anio>2026</span> Haxelera Group SRL</span>
+        <span class="mono pie-marca">HAXELERA®</span>
+        <a class="mono" href="#inicio">Volver al inicio ↑</a>
+      </footer>
+    </section>
+
+  </main>
+
+  <noscript><p class="sin-script">Este sitio usa JavaScript para su experiencia 3D. El contenido sigue disponible arriba.</p></noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
 </html>

@@ -1,16 +1,13 @@
+# Amplify Hosting: el sitio es estático y no se compila. Solo se publican index.html, css, js y assets
+# (el servidor de experiencias y la documentación no se sirven).
 version: 1
 frontend:
   phases:
-    preBuild:
-      commands:
-        - npm ci
     build:
       commands:
-        - npm run build
+        - mkdir -p dist
+        - cp -R index.html css js assets dist/
   artifacts:
     baseDirectory: dist
     files:
       - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
